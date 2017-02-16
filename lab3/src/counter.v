@@ -6,7 +6,6 @@ module counter(
     output reg c_out
 );
 
-    wire 1Hz, 2Hz, 4Hz, 200Hz;
     wire c_out_ones;
 
     // ****** Seconds ******
