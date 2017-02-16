@@ -1,4 +1,4 @@
-module clock(
+module clock_div(
 	input clk,
 	input rst,
 	input pause,
