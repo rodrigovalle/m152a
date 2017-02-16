@@ -1,35 +1,29 @@
 module counter(
+    input clk,
+    input rst,
+    output reg [3:0] count_ones,
+    output reg [3:0] count_tens,
+    output reg c_out
 );
-    // count seconds for now, split into separate module and reuse for minutes
+
     wire 1Hz, 2Hz, 4Hz, 200Hz;
-    wire [] count_ones;
-    wire [] count_tens;
-    wire c_out_ones, c_out_tens;
+    wire c_out_ones;
 
-    clock_div cdiv(
-        // inputs
-        .clk(clk),
-        .rst(btnR),
-        .pause(btnS),
-
-        // outputs
-        .1Hz_clk(1Hz),
-        .2Hz_clk(2Hz),
-        .4Hz_clk(4Hz),
-        .200Hz_clk(200Hz)
-    )
-
+    // ****** Seconds ******
     dec_counter ones_place (
-        .clk(1Hz),
-        .rst(btnR),
+        .clk(clk),
+        .rst(rst),
         .count(count_ones),
-        .c_out(cout_ones)
+        .c_out(c_out_ones)
     )
-        
-    assign rst_tens = btnR || (count_tens == 6);
+
+    assign rst_tens = rst || (count_tens == 6);
+
     dec_counter tens_place (
-        .clk(cout_ones),
+        .clk(c_out_ones),
         .rst(rst_tens),
+        .count(count_tens),
+        .c_out(c_out)
     )
 
 endmodule
