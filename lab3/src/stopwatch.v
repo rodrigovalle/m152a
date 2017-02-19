@@ -55,9 +55,9 @@ module stopwatch(
     reg [3:0] ones_sec, tens_sec, ones_min, tens_min;
     wire sec_overflow;
 
-    assign wire counter_clk = (adj) ? two_hz : ((pause) ? 0 : one_hz);
+    assign wire counter_clk = (adj) ? two_hz : (pause ? 0 : one_hz);
     assign wire seconds_clk = (adj && !sel) ? 0 : counter_clk;
-    assign wire minutes_clk = (adj && !sel) ? counter_clk : 0;
+    assign wire minutes_clk = (adj && !sel) ? counter_clk : (adj ? 0 : sec_overflow);
 
     counter seconds(
         .clk(seconds_clk),
@@ -68,7 +68,7 @@ module stopwatch(
     )
 
     counter minutes(
-        .clk(minutes_clk || sec_overflow),
+        .clk(minutes_clk),
         .rst(rst),
         .count_ones(ones_min),
         .count_tens(tens_min),
