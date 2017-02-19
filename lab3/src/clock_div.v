@@ -1,7 +1,6 @@
 module clock_div(
 	input clk,
 	input rst,
-	input pause,
 	output reg 2Hz_clk,
 	output reg 1Hz_clk,
 	output reg 200Hz_clk,
@@ -23,7 +22,7 @@ always @ (posedge clk) begin
 		100Hz_clk 	<= 0;
 		4Hz_clk 	<= 0;
 	end
-	else if (!pause) begin
+	else begin
 		2Hz_cnt 	= 2Hz_cnt + 1;
 		1Hz_cnt 	= 1Hz_cnt + 1;
 		200Hz_cnt 	= 200Hz_cnt + 1;
