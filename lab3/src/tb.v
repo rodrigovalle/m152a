@@ -1,33 +1,32 @@
 `timescale 1ns / 1ps
 
-module tb;
+module stopwatch_tb;
     reg clk = 0;
-    reg seg
+    reg [7:0] seg;
+
     initial begin
-        #10 clk = ~clk; // 100 MHz master clock
         #10000 $finish;
     end
 
+    always begin
+        #10 clk = ~clk // 100 MHz master clock
+    end
+
     initial begin
-        $monitor("At time %-10t", $time,
-                 "D = %-3b (%0d)  |      ",  D, D,
-                 "S = %-3b    "           ,  S,
-                 "E = %-3b (%0d)     "    ,  E, E,
-                 "F = %-3b (%0d)     "    ,  F, F);
+        $monitor("At time %-10t: seg(%b)", $time, seg)
 
         //#1000 $finish;
     end
 
     // Instantiate the Unit Under Test (UUT)
     stopwatch uut (
-        .clk(),
+        .clk(clk),
         .sw(),
         .btnS(),
         .btnR(),
 
-        .seg(),
+        .seg(seg),
         .an()
     )
 
 endmodule
-
