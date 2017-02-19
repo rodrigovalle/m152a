@@ -11,15 +11,7 @@ module dec_counter(
         if (rst) begin
             count <= 4'b0000;
         end
-    end
-
-    always @(negedge clk) begin
-        c_out <= 0;
-    end
-
-endmodule
-
-      /*else begin
+        else begin
             if (count == 'd 9) begin
                 count <= 4'b 0000;
                 c_out <= 1;
@@ -27,4 +19,11 @@ endmodule
             else begin
                 count <= count + 1;
             end
-        end*/
+        end
+    end
+
+    always @(negedge clk) begin
+        c_out <= 0;
+    end
+
+endmodule
