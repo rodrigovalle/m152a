@@ -52,12 +52,12 @@ module stopwatch(
         .two_hundred_hz_clk(two_hundred_hz)
     );
 
-    reg [3:0] ones_sec, tens_sec, ones_min, tens_min;
-    wire sec_overflow;
+    wire [3:0] ones_sec, tens_sec, ones_min, tens_min;
+    wire counter_clk, seconds_clk, minutes_clk, sec_overflow;
 
-    assign wire counter_clk = (adj) ? two_hz : (pause ? 0 : one_hz);
-    assign wire seconds_clk = (adj && !sel) ? 0 : counter_clk;
-    assign wire minutes_clk = (adj && !sel) ? counter_clk : (adj ? 0 : sec_overflow);
+    assign counter_clk = (adj) ? two_hz : (pause ? 0 : one_hz);
+    assign seconds_clk = (adj && !sel) ? 0 : counter_clk;
+    assign minutes_clk = (adj && !sel) ? counter_clk : (adj ? 0 : sec_overflow);
 
     counter seconds(
         .clk(seconds_clk),

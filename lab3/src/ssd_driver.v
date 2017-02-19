@@ -10,6 +10,4 @@ module ssd_driver(
     output reg [3:0] anodes
 );
 
-
-
 endmodule

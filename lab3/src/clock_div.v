@@ -14,15 +14,15 @@ integer two_hz_cnt, one_hz_cnt, two_hundred_hz_cnt, four_hz_cnt;
 // clk is 100 MHz or 100,000,000
 always @ (posedge clk) begin
     if (rst) begin
-        two_hz_cnt  = 0;
-        one_hz_cnt  = 0;
-        one_hundred_hz_cnt  = 0;
-        four_hz_cnt     = 0;
+        two_hz_cnt  <= 0;
+        one_hz_cnt  <= 0;
+        two_hundred_hz_cnt <= 0;
+        four_hz_cnt <= 0;
 
-        two_hz_clk  <= 0;
-        one_hz_clk  <= 0;
-        one_hundred_hz_clk  <= 0;
-        four_hz_clk     <= 0;
+        two_hz_clk <= 0;
+        one_hz_clk <= 0;
+        two_hundred_hz_cnt <= 0;
+        four_hz_clk <= 0;
     end
     else begin
         two_hz_cnt  = two_hz_cnt + 1;
@@ -50,12 +50,12 @@ always @ (posedge clk) begin
         end
 
         // Manage 100 Hz clk
-        if (one_hundred_hz_cnt == 1000000 - 1) begin
-            one_hundred_hz_clk <= 1;
-            one_hundred_hz_cnt <= 0;
+        if (two_hundred_hz_cnt == 1000000 - 1) begin
+            two_hundred_hz_clk <= 1;
+            two_hundred_hz_cnt <= 0;
         end
         else begin
-            one_hundred_hz_clk <= 0;
+            two_hundred_hz_clk <= 0;
         end
 
         // Manage 4 Hz clk

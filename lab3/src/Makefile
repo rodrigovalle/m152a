@@ -1,6 +1,9 @@
 SRC = $(wildcard *.v)
 
 a.out: $(SRC)
+	iverilog $(SRC)
+
+debug: $(SRC)
 	iverilog -Wall $(SRC)
 
 clean:
@@ -12,4 +15,4 @@ dump.txt: a.out
 less: dump.txt
 	cat dump.txt | less
 
-.PHONY: clean
+.PHONY: clean debug

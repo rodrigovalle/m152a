@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 
 module debouncer(
-    input clk,
-    input rst,
-    input btn_in,
+    input wire clk,
+    input wire rst,
+    input wire btn_in,
     output reg btn_vld
 );
 	

@@ -3,9 +3,9 @@
 module counter(
     input clk,
     input rst,
-    output reg [3:0] count_ones,
-    output reg [3:0] count_tens,
-    output reg c_out
+    output wire [3:0] count_ones,
+    output wire [3:0] count_tens,
+    output wire c_out
 );
 
     wire c_out_ones, rst_tens;

@@ -2,7 +2,7 @@
 
 module stopwatch_tb;
     reg clk = 0;
-    reg [7:0] seg;
+    wire [7:0] seg;
 
     initial begin
         #10000 $finish;

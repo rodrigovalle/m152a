@@ -1,14 +1,13 @@
 `timescale 1ns / 1ps
 
 module ssd_converter(
-	input [3:0] n,
-	output wire [7:0] ssd
+	input  wire [3:0] n,
+	output reg  [7:0] ssd
 );
-
-	assign ssd[7] = 1;
 
 	// Binary to SSD conversion
 	always @(n) begin
+        ssd[7] <= 1;
         case (n)
             4'b0000: ssd <= 7'b0000001; // 0
             4'b0001: ssd <= 7'b1001111; // 1
