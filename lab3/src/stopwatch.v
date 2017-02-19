@@ -9,41 +9,58 @@ module stopwatch(
     output  [3:0]   an      // Anodes for diplaying segments
     );
 
-    wire 1Hz, 2Hz, 4Hz, 200Hz;
-    wire rst, pause;
+    wire one_hz, two_hz, four_hz, two_hundred_hz;
+    wire rst, pause, adj, sel;
 
     debouncer rst_db(
-        .clk(200Hz),
+        .clk(two_hundred_hz),
         .rst(),
         .btn_in(btnR),
         .btn_vld(rst)
     )
 
     debouncer pause_db(
-        .clk(200Hz),
+        .clk(two_hundred_hz),
         .rst(),
         .btn_in(btnS),
         .btn_vld(pause)
+    )
+
+    debouncer adj_db(
+        .clk(two_hundred_hz),
+        .rst(),
+        .btn_in(sw[0]),
+        .btn_vld(adj)
+    )
+
+    debouncer sel_db(
+        .clk(two_hundred_hz),
+        .rst(),
+        .btn_in(sw[1]),
+        .btn_vld(sel)
     )
 
     clock_div cdiv(
         // inputs
         .clk(clk),
         .rst(rst),
-        .pause(btnS),
 
         // outputs
-        .1Hz_clk(1Hz),
-        .2Hz_clk(2Hz),
-        .4Hz_clk(4Hz),
-        .200Hz_clk(200Hz)
+        .one_hz_clk(one_hz),
+        .two_hz_clk(two_hz),
+        .four_hz_clk(four_hz),
+        .two_hundred_hz_clk(two_hundred_hz)
     )
 
     reg [3:0] ones_sec, tens_sec, ones_min, tens_min;
     wire sec_overflow;
 
+    assign wire counter_clk = (adj) ? two_hz : (pause ? 0 : one_hz);
+    assign wire seconds_clk = (adj && !sel) ? 0 : counter_clk;
+    assign wire minutes_clk = (adj && !sel) ? counter_clk : (adj ? 0 : sec_overflow);
+
     counter seconds(
-        .clk(1Hz),
+        .clk(seconds_clk),
         .rst(rst),
         .count_ones(ones_sec),
         .count_tens(tens_sec),
@@ -51,7 +68,7 @@ module stopwatch(
     )
 
     counter minutes(
-        .clk(sec_overflow),
+        .clk(minutes_clk),
         .rst(rst),
         .count_ones(ones_min),
         .count_tens(tens_min),

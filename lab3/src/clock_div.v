@@ -1,69 +1,68 @@
 module clock_div(
 	input clk,
 	input rst,
-	input pause,
-	output reg 2Hz_clk,
-	output reg 1Hz_clk,
-	output reg 200Hz_clk,
-	output reg 4Hz_clk
+	output reg two_hz_clk,
+	output reg one_hz_clk,
+	output reg two_hundred_hz_clk,
+	output reg four_hz_clk
 );
 
-integer 2Hz_cnt, 1Hz_cnt, 200Hz_cnt, 4Hz_cnt;
+integer two_hz_cnt, one_hz_cnt, two_hundred_hz_cnt, four_hz_cnt;
 
 // clk is 100 MHz or 100,000,000
 always @ (posedge clk) begin
 	if (rst) begin
-		2Hz_cnt 	= 0;
-		1Hz_cnt 	= 0;
-		100Hz_cnt 	= 0;
-		4Hz_cnt 	= 0;
+		two_hz_cnt 	= 0;
+		one_hz_cnt 	= 0;
+		one_hundred_hz_cnt 	= 0;
+		four_hz_cnt 	= 0;
 
-		2Hz_clk 	<= 0;
-		1Hz_clk 	<= 0;
-		100Hz_clk 	<= 0;
-		4Hz_clk 	<= 0;
+		two_hz_clk 	<= 0;
+		one_hz_clk 	<= 0;
+		one_hundred_hz_clk 	<= 0;
+		four_hz_clk 	<= 0;
 	end
-	else if (!pause) begin
-		2Hz_cnt 	= 2Hz_cnt + 1;
-		1Hz_cnt 	= 1Hz_cnt + 1;
-		200Hz_cnt 	= 200Hz_cnt + 1;
-		4Hz_cnt 	= 4Hz_cnt + 1;	// for minute/second blinking
+	else begin
+		two_hz_cnt 	= two_hz_cnt + 1;
+		one_hz_cnt 	= one_hz_cnt + 1;
+		two_hundred_hz_cnt 	= two_hundred_hz_cnt + 1;
+		four_hz_cnt 	= four_hz_cnt + 1;	// for minute/second blinking
 
 
 		// Manage 2 Hz clk
-		if (2Hz_cnt == 50,000,000 - 1)	begin
-			2Hz_clk <= 1;
-			2Hz_cnt <= 0;
+		if (two_hz_cnt == 50,000,000 - 1)	begin
+			two_hz_clk <= 1;
+			two_hz_cnt <= 0;
 		end
 		else begin
-			2Hz_clk <= 0;
+			two_hz_clk <= 0;
 		end
 
 		// Manage 1 Hz clk
-		if (1Hz_cnt == 100,000,000 - 1)	begin
-			1Hz_clk <= 1;
-			1Hz_cnt <= 0;
+		if (one_hz_cnt == 100,000,000 - 1)	begin
+			one_hz_clk <= 1;
+			one_hz_cnt <= 0;
 		end
 		else begin
-			1Hz_clk <= 0;
+			one_hz_clk <= 0;
 		end
 
 		// Manage 100 Hz clk
-		if (100Hz_cnt == 1,000,000 - 1)	begin
-			100Hz_clk <= 1;
-			100Hz_cnt <= 0;
+		if (one_hundred_hz_cnt == 1,000,000 - 1)	begin
+			one_hundred_hz_clk <= 1;
+			one_hundred_hz_cnt <= 0;
 		end
 		else begin
-			100Hz_clk <= 0;
+			one_hundred_hz_clk <= 0;
 		end
 
 		// Manage 4 Hz clk
-		if (4Hz_cnt == 25,000,000 - 1)	begin
-			4Hz_clk <= 1;
-			4Hz_cnt <= 0;
+		if (four_hz_cnt == 25,000,000 - 1)	begin
+			four_hz_clk <= 1;
+			four_hz_cnt <= 0;
 		end
 		else begin
-			4Hz_clk <= 0;
+			four_hz_clk <= 0;
 		end
 	end
  end
