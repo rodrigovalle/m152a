@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module ssd_driver(
     input clk,
     input [3:0] disp1,    // in order from left to right

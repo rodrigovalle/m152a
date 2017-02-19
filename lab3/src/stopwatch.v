@@ -17,28 +17,28 @@ module stopwatch(
         .rst(),
         .btn_in(btnR),
         .btn_vld(rst)
-    )
+    );
 
     debouncer pause_db(
         .clk(two_hundred_hz),
         .rst(),
         .btn_in(btnS),
         .btn_vld(pause)
-    )
+    );
 
     debouncer adj_db(
         .clk(two_hundred_hz),
         .rst(),
         .btn_in(sw[0]),
         .btn_vld(adj)
-    )
+    );
 
     debouncer sel_db(
         .clk(two_hundred_hz),
         .rst(),
         .btn_in(sw[1]),
         .btn_vld(sel)
-    )
+    );
 
     clock_div cdiv(
         // inputs
@@ -50,7 +50,7 @@ module stopwatch(
         .two_hz_clk(two_hz),
         .four_hz_clk(four_hz),
         .two_hundred_hz_clk(two_hundred_hz)
-    )
+    );
 
     reg [3:0] ones_sec, tens_sec, ones_min, tens_min;
     wire sec_overflow;
@@ -65,7 +65,7 @@ module stopwatch(
         .count_ones(ones_sec),
         .count_tens(tens_sec),
         .c_out(sec_overflow)
-    )
+    );
 
     counter minutes(
         .clk(minutes_clk),
@@ -73,8 +73,6 @@ module stopwatch(
         .count_ones(ones_min),
         .count_tens(tens_min),
         .c_out()
-    )
-
-    
+    );
 
 endmodule

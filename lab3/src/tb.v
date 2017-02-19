@@ -9,11 +9,11 @@ module stopwatch_tb;
     end
 
     always begin
-        #10 clk = ~clk // 100 MHz master clock
+        #10 clk = ~clk; // 100 MHz master clock
     end
 
     initial begin
-        $monitor("At time %-10t: seg(%b)", $time, seg)
+        $monitor("At time %-10t: seg(%b)", $time, seg);
 
         //#1000 $finish;
     end
@@ -27,6 +27,6 @@ module stopwatch_tb;
 
         .seg(seg),
         .an()
-    )
+    );
 
 endmodule
