@@ -1,7 +1,7 @@
 SRC = $(wildcard *.v)
 
 a.out: $(SRC)
-	iverilog $(SRC)
+	iverilog -Wall $(SRC)
 
 clean:
 	rm -rf a.out dump.txt
