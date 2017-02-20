@@ -5,20 +5,19 @@ module ssd_converter(
 	output reg  [7:0] ssd
 );
 
-	// Binary to SSD conversion
+	// Binary to seven segment display conversion
 	always @(n) begin
-        ssd[7] <= 1;
-        case (n)
-            4'b0000: ssd <= 7'b0000001; // 0
-            4'b0001: ssd <= 7'b1001111; // 1
-            4'b0010: ssd <= 7'b0010010; // 2
-            4'b0011: ssd <= 7'b0000001; // 3
-            4'b0100: ssd <= 7'b0000110; // 4
-            4'b0101: ssd <= 7'b0100101; // 5
-            4'b0110: ssd <= 7'b0100000; // 6
-            4'b0111: ssd <= 7'b0001111; // 7
-            4'b1000: ssd <= 7'b0000000; // 8
-            4'b1001: ssd <= 7'b0000100; // 9
+        case (n)          // HGFEDCBA
+            4'h0: ssd <= ~7'b00111111; // 0
+            4'h1: ssd <= ~7'b00000110; // 1
+            4'h2: ssd <= ~7'b01011011; // 2
+            4'h3: ssd <= ~7'b01001111; // 3
+            4'h4: ssd <= ~7'b01100110; // 4
+            4'h5: ssd <= ~7'b01101101; // 5
+            4'h6: ssd <= ~7'b01101101; // 6
+            4'h7: ssd <= ~7'b00000111; // 7
+            4'h8: ssd <= ~7'b01111111; // 8
+            4'h9: ssd <= ~7'b01101111; // 9
         endcase
 	end
 
