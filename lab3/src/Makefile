@@ -3,8 +3,8 @@ SRC = $(wildcard *.v)
 a.out: $(SRC)
 	iverilog $(SRC)
 
-debug: $(SRC)
-	iverilog -Wall $(SRC)
+ssd_driver_tb: $(SRC)
+	iverilog ssd_converter.v ssd_driver.v ssd_driver_tb.v
 
 clean:
 	rm -rf a.out dump.txt
