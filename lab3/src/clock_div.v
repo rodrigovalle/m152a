@@ -25,10 +25,10 @@ always @ (posedge clk) begin
         four_hz_clk <= 0;
     end
     else begin
-        two_hz_cnt  = two_hz_cnt + 1;
-        one_hz_cnt  = one_hz_cnt + 1;
-        two_hundred_hz_cnt  = two_hundred_hz_cnt + 1;
-        four_hz_cnt     = four_hz_cnt + 1;  // for minute/second blinking
+        two_hz_cnt <= two_hz_cnt + 1;
+        one_hz_cnt <= one_hz_cnt + 1;
+        two_hundred_hz_cnt <= two_hundred_hz_cnt + 1;
+        four_hz_cnt <= four_hz_cnt + 1;  // for minute/second blinking
 
 
         // Manage 2 Hz clk

@@ -8,6 +8,7 @@ module dec_counter(
 );
 
     always @(posedge clk) begin
+        c_out <= 0;
         if (rst) begin
             count <= 4'b0000;
         end
@@ -20,10 +21,6 @@ module dec_counter(
                 count <= count + 1;
             end
         end
-    end
-
-    always @(negedge clk) begin
-        c_out <= 0;
     end
 
 endmodule
