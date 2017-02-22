@@ -1,4 +1,4 @@
-lsmodule ssd_driver_tb;
+module ssd_driver_tb;
     reg clk;
     wire [7:0] cathode;
     wire [3:0] anode;

@@ -18,10 +18,16 @@ module ssd_driver(
 
     integer i = 0;
     integer i_last = 3;
+    integer j;
+
+    initial begin
+        for (j = 0; j < 4; j++)
+            anode[j] = 1;
+    end
 
     always @(posedge clk) begin
-        anode[i_last] <= 0;
-        anode[i] <= 1;
+        anode[i_last] <= 1;
+        anode[i] <= 0;
 
         case (i)
             'd 0: cathode <= digit1;
