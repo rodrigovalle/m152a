@@ -12,14 +12,12 @@ module counter(
 
     assign rst_tens = rst || (count_tens == 6);
 
-    // ****** Seconds ******
     dec_counter ones_place (
         .clk(clk),
         .rst(rst),
         .count(count_ones),
         .c_out(c_out_ones)
     );
-
 
     dec_counter tens_place (
         .clk(c_out_ones),

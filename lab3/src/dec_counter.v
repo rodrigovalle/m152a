@@ -17,7 +17,7 @@ module dec_counter(
         if (rst)
             count <= 4'b0000;
         else begin
-            if (count == 4'd 1001) begin
+            if (count == 4'b 1001) begin
                 count <= 4'b 0000;
                 c_out <= 1;
             end
