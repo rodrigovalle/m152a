@@ -21,7 +21,7 @@ module ssd_driver(
     integer j;
 
     initial begin
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < 4; j = j+1)
             anode[j] = 1;
     end
 
