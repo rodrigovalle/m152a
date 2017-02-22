@@ -7,13 +7,17 @@ module dec_counter(
     output reg       c_out
 );
 
+    initial begin
+        c_out = 0;
+        count = 0;
+    end
+
     always @(posedge clk) begin
         c_out <= 0;
-        if (rst) begin
+        if (rst)
             count <= 4'b0000;
-        end
         else begin
-            if (count == 'd 9) begin
+            if (count == 4'd 1001) begin
                 count <= 4'b 0000;
                 c_out <= 1;
             end
