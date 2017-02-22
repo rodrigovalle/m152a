@@ -9,8 +9,27 @@ module stopwatch(
     output  [3:0]   an      // Anodes for diplaying segments
     );
 
+    // clock outputs
     wire one_hz, two_hz, four_hz, four_hundred_hz;
-    wire rst, pause, adj, sel;
+
+    // debounced button outputs
+    wire rst, pause;
+
+    // switches
+    wire adj = sw[0];
+    wire sel = sw[1];
+
+    clock_div cdiv(
+        // inputs
+        .clk(clk),
+        .rst(rst),
+
+        // outputs
+        .one_hz_clk(one_hz),
+        .two_hz_clk(two_hz),
+        .four_hz_clk(four_hz),
+        .four_hundred_hz_clk(four_hundred_hz)
+    );
 
     debouncer rst_db(
         .clk(four_hundred_hz),
@@ -24,32 +43,6 @@ module stopwatch(
         .rst(),
         .btn_in(btnS),
         .btn_vld(pause)
-    );
-
-    debouncer adj_db(
-        .clk(four_hundred_hz),
-        .rst(),
-        .btn_in(sw[0]),
-        .btn_vld(adj)
-    );
-
-    debouncer sel_db(
-        .clk(four_hundred_hz),
-        .rst(),
-        .btn_in(sw[1]),
-        .btn_vld(sel)
-    );
-
-    clock_div cdiv(
-        // inputs
-        .clk(clk),
-        .rst(rst),
-
-        // outputs
-        .one_hz_clk(one_hz),
-        .two_hz_clk(two_hz),
-        .four_hz_clk(four_hz),
-        .four_hundred_hz_clk(four_hundred_hz)
     );
 
     wire [3:0] ones_sec, tens_sec, ones_min, tens_min;
