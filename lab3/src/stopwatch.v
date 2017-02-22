@@ -9,32 +9,32 @@ module stopwatch(
     output  [3:0]   an      // Anodes for diplaying segments
     );
 
-    wire one_hz, two_hz, four_hz, two_hundred_hz;
+    wire one_hz, two_hz, four_hz, four_hundred_hz;
     wire rst, pause, adj, sel;
 
     debouncer rst_db(
-        .clk(two_hundred_hz),
+        .clk(four_hundred_hz),
         .rst(),
         .btn_in(btnR),
         .btn_vld(rst)
     );
 
     debouncer pause_db(
-        .clk(two_hundred_hz),
+        .clk(four_hundred_hz),
         .rst(),
         .btn_in(btnS),
         .btn_vld(pause)
     );
 
     debouncer adj_db(
-        .clk(two_hundred_hz),
+        .clk(four_hundred_hz),
         .rst(),
         .btn_in(sw[0]),
         .btn_vld(adj)
     );
 
     debouncer sel_db(
-        .clk(two_hundred_hz),
+        .clk(four_hundred_hz),
         .rst(),
         .btn_in(sw[1]),
         .btn_vld(sel)
@@ -49,7 +49,7 @@ module stopwatch(
         .one_hz_clk(one_hz),
         .two_hz_clk(two_hz),
         .four_hz_clk(four_hz),
-        .two_hundred_hz_clk(two_hundred_hz)
+        .four_hundred_hz_clk(four_hundred_hz)
     );
 
     wire [3:0] ones_sec, tens_sec, ones_min, tens_min;
@@ -106,17 +106,14 @@ module stopwatch(
         .ssd(digit4)
     );
 
-    wire [7:0] cathode;
-    wire [3:0] anode;
-
     ssd_driver driver(
-        .clk(two_hundred_hz),
+        .clk(four_hundred_hz),
         .digit1(digit1),
         .digit2(digit2),
         .digit3(digit3),
         .digit4(digit4),
-        .cathode(cathode),
-        .anode(anode)
+        .cathode(seg),
+        .anode(an)
     );
 
 endmodule
