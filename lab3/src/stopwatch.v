@@ -53,8 +53,8 @@ module stopwatch(
     );
 
     wire [3:0] ones_sec, tens_sec, ones_min, tens_min;
-    wire counter_clk, seconds_clk, minutes_clk, sec_overflow;
 
+    wire counter_clk, seconds_clk, minutes_clk, sec_overflow;
     assign counter_clk = (adj) ? two_hz : (pause ? 0 : one_hz);
     assign seconds_clk = (adj && !sel) ? 0 : counter_clk;
     assign minutes_clk = (adj && !sel) ? counter_clk : (adj ? 0 : sec_overflow);
@@ -73,6 +73,50 @@ module stopwatch(
         .count_ones(ones_min),
         .count_tens(tens_min),
         .c_out()
+    );
+
+    // Logic to handle blinking during adj mode
+    wire [0:0] ones_blink, mins_blink;
+    assign ones_blink       = (adj && sel)  ? four_hz : 0;
+    assign minutes_blink    = (adj && !sel) ? four_hz : 0;
+
+    wire [7:0] digit1, digit2, digit3, digit4;
+
+    ssd_converter sec_ones_convert(
+        .n(ones_sec),
+        //.blink(ones_blink),
+        .ssd(digit1)
+    );
+
+    ssd_converter sec_tens_convert(
+        .n(tens_sec),
+        //.blink(ones_blink),
+        .ssd(digit2)
+    );
+
+    ssd_converter min_ones_convert(
+        .n(ones_min),
+        //.blink(mins_blink),
+        .ssd(digit3)
+    );
+
+    ssd_converter min_tens_convert(
+        .n(tens_min),
+        //.blink(mins_blink),
+        .ssd(digit4)
+    );
+
+    wire [7:0] cathode;
+    wire [3:0] anode;
+
+    ssd_driver driver(
+        .clk(two_hundred_hz),
+        .digit1(digit1),
+        .digit2(digit2),
+        .digit3(digit3),
+        .digit4(digit4),
+        .cathode(cathode),
+        .anode(anode)
     );
 
 endmodule

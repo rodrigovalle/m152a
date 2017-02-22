@@ -2,8 +2,13 @@
 
 module ssd_converter(
 	input  wire [3:0] n,
+    //input  wire [0:0] blink,
 	output reg  [7:0] ssd
 );
+
+    /*always @(posedge blink) begin
+        ssd <= ~8'b00000000;    // no lights
+    end*/
 
 	// Binary to seven segment display conversion
 	always @(n) begin
