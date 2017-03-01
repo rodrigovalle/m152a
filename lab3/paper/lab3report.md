@@ -43,17 +43,30 @@ Our design was modularized into the following components:
       - inputs: takes a clock input which decides how fast to count, and a
         reset input which will cause the counter to begin counting from zero.
       - outputs: a tens place count and a ones place count which together
-        represent a number
+        represent a number. Also outputs a c_out, which will be set high
+        whenever the counter overflows.
 
-  - **debouncer**:
+  - **debouncer**: a simple state machine to detect the falling edge of a noisy
+    signal. It takes a button as input and waits until it registers a steady
+    state followed by a drop off, and then synchronizes the debounced output on
+    a clock edge.
 
-  - **ssd_converter**:
+  - **ssd_converter**: a simple combinational logic circuit which accepts
+    a number as input and outputs the correct segments to light up on the seven
+    segment display.
 
-  - **blink**: 
+  - **blink**: this module sits between ssd_converter and ssd_driver and blinks
+    input digits from ssd_converter on and off with the frequency of a given clock
+    if the enable input is set high. Digits will not blink and simply pass through
+    the module if the enable input is low.
 
-  - **ssd_driver**:
+  - **ssd_driver**: this module is responsible for multiplexing four seven
+    segment display input signals across the 4 seven segment displays
 
-  - **stopwatch**:
+  - **stopwatch**: the top level module which glues together the other modules
+    we've specified here. It handles taking input from the physical FPGA controls
+    and giving this input to submodules that need it (along with some control
+    logic).
 
 
 Document the design aspects including the basic description of the design,
