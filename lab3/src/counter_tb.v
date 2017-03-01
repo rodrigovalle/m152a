@@ -10,7 +10,7 @@ module counter_tb;
     initial begin
         clk = 0;
         rst = 0;
-        #100 $finish;
+        #50 $finish;
     end
 
     always begin

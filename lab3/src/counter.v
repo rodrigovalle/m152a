@@ -9,11 +9,11 @@ module counter(
 );
 
     wire c_out_ones;
-    reg rst_tens = 0;
+    reg rst_tens;
 
     dec_counter ones_place (
         .clk(clk),
-        .rst(rst_all),
+        .rst(rst),
         .count(count_ones),
         .c_out(c_out_ones)
     );
@@ -25,14 +25,19 @@ module counter(
         .c_out()
     );
 
-    always @(posedge clk) begin
-        rst_tens <= 0;
-        c_out <= 0;
-
-        if (rst || count_tens == 5)
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
             rst_tens <= 1;
-        if (count_tens == 5 && count_ones == 9)
+            c_out <= 0;
+        end
+        else if (count_tens == 5 && count_ones == 9) begin
+            rst_tens <= 1;
             c_out <= 1;
+        end
+        else begin
+            c_out <= 0;
+            rst_tens <= 0;
+        end
     end
 
 endmodule

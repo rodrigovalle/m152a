@@ -2,25 +2,19 @@
 
 module debouncer(
     input wire clk,
-    input wire rst,
     input wire btn_in,
-    output reg btn_vld
+    output reg btn_state
 );
-	
-	reg [2:0] hist = 0;
 
-	always @(posedge clk)
-     if (rst) begin
-     		hist <= 0;
-        	btn_vld <= 1'b0;
-        end
-     else if (clk)
-       begin
-       		hist <= {hist[1:0], btn_in};
-        	if (hist == 2)
-        		btn_vld <= 1;
-        	else
-        		btn_vld <= 0;
-       end
+    reg [2:0] hist;
+
+    initial
+        btn_state = 0;
+
+    always @(posedge clk) begin
+        hist <= {hist[1:0], btn_in};
+        if (hist == 3'b110)
+            btn_state <= ~btn_state;
+    end
 
 endmodule

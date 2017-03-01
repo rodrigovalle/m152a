@@ -12,10 +12,11 @@ module dec_counter(
         count = 0;
     end
 
-    always @(posedge clk) begin
-        c_out <= 0;
-        if (rst)
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
             count <= 4'b0000;
+            c_out <= 0;
+        end
         else begin
             if (count == 4'b 1001) begin
                 count <= 4'b 0000;
@@ -23,6 +24,7 @@ module dec_counter(
             end
             else begin
                 count <= count + 1;
+                c_out <= 0;
             end
         end
     end

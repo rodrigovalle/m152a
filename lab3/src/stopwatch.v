@@ -14,6 +14,7 @@ module stopwatch(
 
     // debounced button outputs
     wire rst, pause;
+	 assign rst = btnR;
 
     // switches
     wire adj = sw[0];
@@ -31,18 +32,18 @@ module stopwatch(
         .four_hundred_hz_clk(four_hundred_hz)
     );
 
+	 /*
     debouncer rst_db(
         .clk(four_hundred_hz),
-        .rst(),
         .btn_in(btnR),
-        .btn_vld(rst)
+        .btn_state(rst)
     );
-
+	 */
+	 
     debouncer pause_db(
         .clk(four_hundred_hz),
-        .rst(),
         .btn_in(btnS),
-        .btn_vld(pause)
+        .btn_state(pause)
     );
 
     wire [3:0] ones_sec, tens_sec, ones_min, tens_min;
@@ -68,43 +69,56 @@ module stopwatch(
         .c_out()
     );
 
-    // Logic to handle blinking during adj mode
-    wire [0:0] ones_blink, mins_blink;
-    assign ones_blink       = (adj && sel)  ? four_hz : 0;
-    assign minutes_blink    = (adj && !sel) ? four_hz : 0;
 
     wire [7:0] digit1, digit2, digit3, digit4;
 
     ssd_converter sec_ones_convert(
         .n(ones_sec),
-        //.blink(ones_blink),
         .ssd(digit1)
     );
 
     ssd_converter sec_tens_convert(
         .n(tens_sec),
-        //.blink(ones_blink),
         .ssd(digit2)
     );
 
     ssd_converter min_ones_convert(
         .n(ones_min),
-        //.blink(mins_blink),
         .ssd(digit3)
     );
 
     ssd_converter min_tens_convert(
         .n(tens_min),
-        //.blink(mins_blink),
         .ssd(digit4)
     );
+	 
+	 
+    wire [7:0] digit1_blink, digit2_blink, digit3_blink, digit4_blink;
+	 
+	 blink secBlink(
+	      .clk(four_hz),
+			.enable(adj && sel),
+			.digit1(digit1),
+			.digit2(digit2),
+			.digit1_out(digit1_blink),
+			.digit2_out(digit2_blink)
+	 );
+	 
+	 blink minBlink(
+	      .clk(four_hz),
+			.enable(adj && !sel),
+			.digit1(digit3),
+			.digit2(digit4),
+			.digit1_out(digit3_blink),
+			.digit2_out(digit4_blink)
+	 );
 
     ssd_driver driver(
         .clk(four_hundred_hz),
-        .digit1(digit1),
-        .digit2(digit2),
-        .digit3(digit3),
-        .digit4(digit4),
+        .digit1(digit1_blink),
+        .digit2(digit2_blink),
+        .digit3(digit3_blink),
+        .digit4(digit4_blink),
         .cathode(seg),
         .anode(an)
     );
