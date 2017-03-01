@@ -62,17 +62,37 @@ module. You should include schematics for the system architecture. You can also
 include figures for state machines and Verilog code when needed.
 
 ### Bugs
-  - blink: wasn't blinking in adjust mode until we separated it out into a
-    separate module, tried to do blink logic in ssd_converter.
+  - blink.v: Blink logic was originally in ssd_converter module. This made it difficult to blink on and off at 4Hz while updating the seven segment display at 400Hz. As a result, our seven segment display wasn't blinking in adjust mode. Eventually we separated it out into its own module called blink.v which was placed as an intermediary between ssd_converter and ssd_driver. This allowed us to tell the ssd_drive to show nothing every 4Hz.
 
-  - off-by-one in counter: reset at 50 seconds instead of a minute
+  - counter.v: Had an off by one error that caused our seconds and minutes to reset at 50 instead of 60. This was simply a comparison error in which we reset the tens spot once a positive clock edge hit and the tens digit became 5. This was fixed by changing this comparison to wait for 59 seconds/minutes before reseting to 0.
 
-  - ssd_converter converted 6s into 5s.
+  - ssd_converter.v: Was converting all 6s to 5s so that our seven segment display counter up with the following sequence ...3,4,5,5,7,8... The bug was in the switch statement where we had accidentally routed binary 6 to the cathode display of 5. This was also a quick fix once we isolated this problem.
 
-  - reset wouldn't reset the tens in minutes or seconds
+  - Reset: Pressing reset wouldn't reset the tens in minutes or seconds (the ones would get reset). This bug was in the counter.v module. We were only reseting the tens digit if the reset was being held down while the ones digit incremented from 9 -> 10 (overflow). Of course this never occured because when the reset button was pressed, the ones digit was set to 0 and could not increment. This was fixed by changing our if-else statements to allow reset to immediately reset both the ones and tens digits with the next clock cycle.
 
 
 ## Simulation Documentation
+We tested all basic functionality of a stopwatch including couting up, reset, pause, adjust, and select (seconds & minutes). In doing so we kept an eye out for the following events and edge cases:
+- adjust mode caused whichever set of digits (seconds/minutes) was selected to blink and increase at an elevated speed
+- pause stopped the stopwatch from all increments until toggled back off
+- the seven segment display showed all 10 possible digits correctly (0-9)
+- the seven segment display rotated anodes quickly enough to appear to have a constant display to the human eye
+- incrementing from 59 seconds to 1 minutes and also 59 minutes back to 0 minutes
+
+We created testbenches for several individual modules. These test benches, along with the waveforms they produced are provided below.
+
+counter.v
+<TODO: counter waveform image here>
+<TODO: counter_tb.v source code image here>
+
+dec_counter.v
+<TODO: dec_counter waveform image here>
+<TODO: dec_counter_tb.v source code image here>
+
+ssd_driver.v
+<TODO: ssd_driver waveform image here>
+<TODO: ssd_driver_tb.v source code image here>
+
 Document all simulation efforts (what requirments are tested and test cases),
 document bugs found during simulation, and provide simulation waveforms.
 Include all simulation testbench code source files.
