@@ -14,7 +14,7 @@ module mastermind(
     output  [2:0]   rgb1_out,   // led 1
     output  [2:0]   rgb2_out,   // led 2
     output  [2:0]   rgb3_out,   // led 3
-    output          turn
+    output  [2:0]   turn
     );
 
     // clock outputs
@@ -82,8 +82,24 @@ module mastermind(
 
     // History
     wire [2:0] history0, history1, history2, history3;
+    wire last_turn;
     history hist(
-        // TODO
+        .clk(clk),
+        .mode(sw),
+        .reset(),
+        .btn_up(up),
+        .btn_down(down),
+        .btn_select(select),
+        .guess3(guess3),
+        .guess2(guess2),
+        .guess1(guess1),
+        .guess0(guess0),
+        .selection3(history3),
+        .selection2(history2),
+        .selection1(history1),
+        .selection0(history0),
+        .selected_turn(turn),
+        .last_turn(last_turn)
     );
 
     // Led Driver
@@ -114,6 +130,7 @@ module mastermind(
     // Feedback
     wire [1:0] feedback0, feedback1, feedback2, feedback3;
     feedback feedback(
+        .last_turn(last_turn),
         .code0(code0),
         .code1(code1),
         .code2(code2),
