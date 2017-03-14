@@ -2,7 +2,6 @@
 
 module clock_div(
     input clk,
-    input rst,
     output reg two_hz_clk,
     output reg one_hz_clk,
     output reg four_hundred_hz_clk,
