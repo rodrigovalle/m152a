@@ -57,22 +57,22 @@ module feedback(
             if (code0 == history0) begin
                 code0_matched = 1;
                 history0_matched = 1;
-                direct_matches += 1;
+                direct_matches = direct_matches + 1;
             end
             if (code1 == history1) begin
                 code1_matched = 1;
                 history1_matched = 1;
-                direct_matches += 1;
+                direct_matches = direct_matches + 1;
             end
             if (code2 == history2) begin
                 code2_matched = 1;
                 history2_matched = 1;
-                direct_matches += 1;
+                direct_matches = direct_matches + 1;
             end
             if (code3 == history3) begin
                 code3_matched = 1;
                 history3_matched = 1;
-                direct_matches += 1;
+                direct_matches = direct_matches + 1;
             end
 
             // Check for indirect matches with code0
@@ -80,17 +80,17 @@ module feedback(
                 if (code0 == history1 && history1_matched == 0) begin
                     code0_matched = 1;
                     history1_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code0 == history2 && history2_matched == 0) begin
                     code0_matched = 1;
                     history2_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code0 == history3 && history3_matched == 0) begin
                     code0_matched = 1;
                     history3_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
             end
 
@@ -99,17 +99,17 @@ module feedback(
                 if (code1 == history0 && history0_matched == 0) begin
                     code1_matched = 1;
                     history0_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code1 == history2 && history2_matched == 0) begin
                     code1_matched = 1;
                     history2_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code1 == history3 && history3_matched == 0) begin
                     code1_matched = 1;
                     history3_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
             end
 
@@ -118,17 +118,17 @@ module feedback(
                 if (code2 == history0 && history0_matched == 0) begin
                     code2_matched = 1;
                     history0_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code2 == history1 && history1_matched == 0) begin
                     code2_matched = 1;
                     history1_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code2 == history3 && history3_matched == 0) begin
                     code2_matched = 1;
                     history3_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
             end
 
@@ -137,17 +137,17 @@ module feedback(
                 if (code3 == history0 && history0_matched == 0) begin
                     code3_matched = 1;
                     history0_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code3 == history1 && history1_matched == 0) begin
                     code3_matched = 1;
                     history1_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
                 else if (code3 == history2 && history2_matched == 0) begin
                     code3_matched = 1;
                     history2_matched = 1;
-                    indirect_matches += 1;
+                    indirect_matches = indirect_matches + 1;
                 end
             end
 
