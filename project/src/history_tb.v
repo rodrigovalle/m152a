@@ -24,11 +24,11 @@ module history_tb;
         select = 0;
         for (i = 0; i < 4; i = i+1)
             guess[i] = 'b000;
-        #20 $finish;
+        #40 $finish;
     end
 
     always begin
-        #1 clk = ~clk;
+        #0.5 clk = ~clk;
     end
 
     always @(posedge clk) begin
@@ -41,14 +41,40 @@ module history_tb;
             guess[3] <= 'b000;
         end
 
-        if (cnt == 2) begin
+        if (cnt == 1) begin
             $display("confirming selection");
             select <= 1;
         end
 
-        if (cnt == 4) begin
+        if (cnt == 2) begin
             $display("checking selection");
+            select <= 0;
             mode <= 1;
+        end
+
+        if (cnt == 3) 
+            mode <= 0;
+
+        if (cnt == 6) begin
+            $display("Another selection");
+            guess[0] <= 'b000;
+            guess[1] <= 'b001;
+            guess[2] <= 'b000;
+            guess[3] <= 'b000;
+            select <= 1;
+        end
+
+        if (cnt == 7)
+            select <= 0;
+
+        if (cnt == 12) begin
+            $display("History");
+            mode <= 1;
+        end
+
+        if (cnt == 16) begin
+            $display("Press down");
+            down <= 1;
         end
 
         $display("----\n",
