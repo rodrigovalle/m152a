@@ -83,7 +83,7 @@ module mastermind(
     // History
     wire [2:0] history0, history1, history2, history3;
     wire last_turn;
-    wire game_over
+    wire game_over;
 
     history hist(
         .clk(clk),
