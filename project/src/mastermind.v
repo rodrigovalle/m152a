@@ -83,11 +83,12 @@ module mastermind(
     // History
     wire [2:0] history0, history1, history2, history3;
     wire last_turn;
+    wire game_over
 
     history hist(
         .clk(clk),
         .mode(sw),
-        .reset(),
+        .reset(game_over),
         .btn_up(up),
         .btn_down(down),
         .btn_select(select),
@@ -148,7 +149,8 @@ module mastermind(
         .ssd0(feedback0),
         .ssd1(feedback1),
         .ssd2(feedback2),
-        .ssd3(feedback3)
+        .ssd3(feedback3),
+        .game_over(game_over)
     );
 
     // Seven segment display
