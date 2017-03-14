@@ -35,16 +35,19 @@ module history(
     always @(posedge clk) begin
         if (reset) begin
             for (i = 0; i < 8; i = i + 1)
-                history[i] <= 'b000000000000;
+                history[i] = 'b000000000000;
             last_turn <= 0;
-            current_turn <= 0;
+            current_turn = 0;
+            selected_turn <= 0;
             first_turn <= 1;
         end
 
         else if (mode == 0) begin
+
+            if (current_turn == 7)
+                last_turn = 1;
+
             if (btn_select) begin // STORE GUESS
-                if (current_turn == 7)
-                    last_turn <= 1;
                 history[current_turn] <= {guess3, guess2, guess1, guess0};
                 selected_turn <= current_turn;
                 current_turn <= current_turn + 1;
@@ -55,6 +58,7 @@ module history(
         end
 
         else if (mode == 1 && !first_turn) begin // HISTORY
+            last_turn = 0;
             if (btn_up && selected_turn < current_turn)
                 selected_turn <= selected_turn + 1;
 
