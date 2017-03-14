@@ -131,12 +131,17 @@ module mastermind(
     // PRNG
     wire [2:0] code0, code1, code2, code3;
     prng prng(
-        // TODO
+        .clk(four_hundred_hz),
+        .code0(code0),
+        .code1(code1),
+        .code2(code2),
+        .code3(code3),
     );
 
     // Feedback
     wire [1:0] feedback0, feedback1, feedback2, feedback3;
     feedback feedback(
+        .clk(one_hz_clk),
         .last_turn(last_turn),
         .code0(code0),
         .code1(code1),
