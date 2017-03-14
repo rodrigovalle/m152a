@@ -10,17 +10,21 @@ module history_tb;
     reg [2:0] guess[3:0];
     wire [2:0] selection[3:0];
     wire [2:0] selected_turn;
-    wire end_game;
+    wire last_turn;
 
+    integer i;
     integer cnt = 0;
 
     initial begin
         clk    = 0;
         mode   = 0;
+        reset  = 0;
         up     = 0;
         down   = 0;
         select = 0;
-        #40 $finish;
+        for (i = 0; i < 4; i = i+1)
+            guess[i] = 'b000;
+        #20 $finish;
     end
 
     always begin
@@ -28,29 +32,29 @@ module history_tb;
     end
 
     always @(posedge clk) begin
-        // try to go down in history before there's any history
         if (cnt == 0) begin
-            mode <= 1;
-            down <= 1;
-        end
-
-        if (cnt == 1) begin
-            mode <= 0;
+            $display("making selection");
+            // start in guess mode
             guess[0] <= 'b001;
-            guess[1] <= 'b001;
-            guess[2] <= 'b001;
-            guess[3] <= 'b001;
-            select <= 1;
+            guess[1] <= 'b000;
+            guess[2] <= 'b000;
+            guess[3] <= 'b000;
         end
 
         if (cnt == 2) begin
+            $display("confirming selection");
+            select <= 1;
+        end
+
+        if (cnt == 4) begin
+            $display("checking selection");
             mode <= 1;
         end
 
         $display("----\n",
                  "Selection: %d-%d-%d-%d\n", selection[0], selection[1], selection[2], selection[3],
                  "Selected Turn: %d\n", selected_turn,
-                 "End Game: %d  Cnt: %0d", end_game, cnt);
+                 "End Game: %d  Cnt: %0d\n\n", last_turn, cnt);
 
         cnt = cnt + 1;
     end
@@ -74,7 +78,7 @@ module history_tb;
         .selection2(selection[2]),
         .selection3(selection[3]),
         .selected_turn(selected_turn),
-        .end_game(end_game)
+        .last_turn(last_turn)
     );
 
 endmodule
