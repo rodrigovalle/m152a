@@ -23,42 +23,42 @@ module led_driver(
             show <= ~show;
             if (!show) begin
                 if (blink_led == 0) begin
-                    rgb1_out <= 3'b000;
-                    rgb2_out <= guess_rgb1;
-                    rgb3_out <= guess_rgb2;
-                    rgb4_out <= guess_rgb3;
+                    rgb0_out <= 3'b000;
+                    rgb1_out <= guess_rgb1;
+                    rgb2_out <= guess_rgb2;
+                    rgb3_out <= guess_rgb3;
                 end
                 if (blink_led == 1) begin
-                    rgb1_out <= guess_rgb0;
-                    rgb2_out <= 3'b000;
-                    rgb3_out <= guess_rgb2;
-                    rgb4_out <= guess_rgb3;
+                    rgb0_out <= guess_rgb0;
+                    rgb1_out <= 3'b000;
+                    rgb2_out <= guess_rgb2;
+                    rgb3_out <= guess_rgb3;
                 end
                 if (blink_led == 2) begin
-                    rgb1_out <= guess_rgb0;
-                    rgb2_out <= guess_rgb1;
-                    rgb3_out <= 3'b000;
-                    rgb4_out <= guess_rgb3;
+                    rgb0_out <= guess_rgb0;
+                    rgb1_out <= guess_rgb1;
+                    rgb2_out <= 3'b000;
+                    rgb3_out <= guess_rgb3;
                 end
                 if (blink_led == 3) begin
-                    rgb1_out <= guess_rgb0;
-                    rgb2_out <= guess_rgb1;
-                    rgb3_out <= guess_rgb2;
-                    rgb4_out <= 3'b000;
+                    rgb0_out <= guess_rgb0;
+                    rgb1_out <= guess_rgb1;
+                    rgb2_out <= guess_rgb2;
+                    rgb3_out <= 3'b000;
                 end
             end
             else begin          
-                rgb1_out <= guess_rgb0;
-                rgb2_out <= guess_rgb1;
-                rgb3_out <= guess_rgb2;
-                rgb4_out <= guess_rgb3;
+                rgb0_out <= guess_rgb0;
+                rgb1_out <= guess_rgb1;
+                rgb2_out <= guess_rgb2;
+                rgb3_out <= guess_rgb3;
             end
         end
         else begin // HISTORY mode
-            rgb1_out <= history_rgb0;
-            rgb2_out <= history_rgb1;
-            rgb3_out <= history_rgb2;
-            rgb4_out <= history_rgb3;
+            rgb0_out <= history_rgb0;
+            rgb1_out <= history_rgb1;
+            rgb2_out <= history_rgb2;
+            rgb3_out <= history_rgb3;
         end
      end
 
