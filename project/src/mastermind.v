@@ -14,7 +14,7 @@ module mastermind(
     output  [2:0]   rgb1_out,   // led 1
     output  [2:0]   rgb2_out,   // led 2
     output  [2:0]   rgb3_out,   // led 3
-    output  [2:0]   turn
+    output  [7:0]   sw_led      // those leds above the switches
     );
 
     // clock outputs
@@ -83,6 +83,7 @@ module mastermind(
     // History
     wire [2:0] history0, history1, history2, history3;
     wire last_turn;
+
     history hist(
         .clk(clk),
         .mode(sw),
@@ -100,6 +101,11 @@ module mastermind(
         .selection0(history0),
         .selected_turn(turn),
         .last_turn(last_turn)
+    );
+
+    turn turn_convert(
+        .turn_count(turn),
+        .sw_led(sw_led)
     );
 
     // Led Driver
