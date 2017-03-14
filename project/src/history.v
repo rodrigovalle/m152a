@@ -48,7 +48,7 @@ module history(
                 last_turn = 1;
 
             if (btn_select) begin // STORE GUESS
-                history[current_turn] <= {guess3, guess2, guess1, guess0};
+                history[current_turn] = {guess3, guess2, guess1, guess0};
                 selected_turn <= current_turn;
                 current_turn <= current_turn + 1;
                 first_turn <= 0;
