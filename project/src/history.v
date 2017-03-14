@@ -36,7 +36,7 @@ module history(
         if (reset) begin
             for (i = 0; i < 8; i = i + 1)
                 history[i] = 'b000000000000;
-            last_turn <= 0;
+            last_turn = 0;
             current_turn = 0;
             selected_turn <= 0;
             first_turn <= 1;
