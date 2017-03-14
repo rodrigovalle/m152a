@@ -135,7 +135,7 @@ module mastermind(
         .code0(code0),
         .code1(code1),
         .code2(code2),
-        .code3(code3),
+        .code3(code3)
     );
 
     // Feedback
