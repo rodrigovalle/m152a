@@ -130,7 +130,7 @@ module mastermind(
 
     // PRNG
     wire [2:0] code0, code1, code2, code3;
-    prng prng(
+    prng code_creator(
         .clk(four_hundred_hz),
         .code0(code0),
         .code1(code1),
