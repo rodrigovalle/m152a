@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
 module guess(
-    input rst,
     input enable,
     input left,
     input right,
@@ -14,15 +13,15 @@ module guess(
     output reg [1:0] blink_led // which led should be blinking
 );
 
-    always @(enable or left or right or up or down or rst) begin
-        if (rst) begin    
-            led_zero = 0;
-            led_one = 0;
-            led_two = 0;
-            led_three = 0;
-            blink_led = 0;
-        end
+    initial begin
+        led_zero = 0;
+        led_one = 0;
+        led_two = 0;
+        led_three = 0;
+        blink_led = 0;
+    end
 
+    always @(enable or left or right or up or down) begin
         if (enable) begin 
             // Handle changing led
             if (left)

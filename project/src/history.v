@@ -3,7 +3,6 @@
 module history(
     input wire clk,
     input wire mode,
-    input wire reset,
     input wire btn_up,
     input wire btn_down,
     input wire btn_select,
@@ -25,23 +24,23 @@ module history(
     reg first_turn;
     reg [3:0][2:0] history[7:0];
 
+    initial begin
+        for (i = 0; i < 8; i = i + 1)
+            history[i] = 'b000000000000;
+        
+        current_turn = 0;
+        last_turn = 0;
+        first_turn = 1;
+        selected_turn = 0;
+
+        selection0 = 0;
+        selection1 = 0;
+        selection2 = 0;
+        selection3 = 0;
+    end
+
     always @(posedge clk) begin
-        if (reset) begin
-            for (i = 0; i < 8; i = i + 1)
-                history[i] = 'b000000000000;
-            
-            current_turn = 0;
-            last_turn = 0;
-            first_turn = 1;
-            selected_turn = 0;
-
-            selection0 = 0;
-            selection1 = 0;
-            selection2 = 0;
-            selection3 = 0;
-        end
-
-        else if (mode == 0) begin
+        if (mode == 0) begin
 
             if (current_turn == 7)
                 last_turn = 1;
@@ -95,39 +94,5 @@ module history(
             end
         end
     end
-
-    // always @(negedge clk) begin
-    //     // guess mode: show most recent guess for the feedback module
-    //     if (mode == 0) begin
-    //         if (current_turn == 0) begin
-    //             selection3 = 0;
-    //             selection2 = 0;
-    //             selection1 = 0;
-    //             selection0 = 0;
-    //         end
-    //         else begin
-    //             selection3 = history[selected_turn][3];
-    //             selection2 = history[selected_turn][2];
-    //             selection1 = history[selected_turn][1];
-    //             selection0 = history[selected_turn][0];
-    //         end
-    //     end
-
-    //     // history mode: show the currently selected mode if available
-    //     else if (mode == 1) begin
-    //         if (first_turn) begin
-    //             selection3 = 0;
-    //             selection2 = 0;
-    //             selection1 = 0;
-    //             selection0 = 0;
-    //         end
-    //         else begin
-    //             selection3 = history[selected_turn][3];
-    //             selection2 = history[selected_turn][2];
-    //             selection1 = history[selected_turn][1];
-    //             selection0 = history[selected_turn][0];
-    //         end
-    //     end
-    // end
 
 endmodule

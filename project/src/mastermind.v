@@ -79,7 +79,6 @@ module mastermind(
 
     // Guess
     guess guess(
-        .rst(rst),
         .enable(!sw),
         .left(left),
         .right(right),
@@ -101,7 +100,6 @@ module mastermind(
     history hist(
         .clk(clk),
         .mode(sw),
-        .reset(game_over || rst),
         .btn_up(up),
         .btn_down(down),
         .btn_select(select),
@@ -124,7 +122,6 @@ module mastermind(
 
     // Led Driver
     led_driver led_dr(
-        .rst(rst),
         .blink_clk(four_hz),
         .blink_enable(!sw),
         .blink_led(blink_led),
