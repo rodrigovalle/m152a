@@ -3,20 +3,31 @@
 module debouncer(
     input wire clk,
     input wire btn_in,
-    output reg btn_state
+    output reg btn_state,
+    output reg btn_down,
+    output reg btn_up
 );
 
-    reg [2:0] hist;
-
-    initial
-        btn_state = 0;
+    reg btn_sync_0;
+    reg btn_sync_1;
 
     always @(posedge clk) begin
-        hist <= {hist[1:0], btn_in};
-        if (hist == 3'b110)
-            btn_state <= 1;
-        else
-            btn_state <= 0;
+        btn_sync_0 <= ~btn_in;
+        btn_sync_1 <= btn_sync_0;
+    end
+
+    reg [15:0] btn_count;
+
+    wire btn_idle = (btn_state == btn_sync_1);
+    wire btn_count_maxed = &btn_count;
+
+    always @(posedge clk) begin
+        if (btn_idle)
+            btn_count <= btn_count + 1;
+        else begin
+            assign btn_down = ~btn_idle & btn_count_maxed & ~btn_state;
+            assign btn_up   = ~btn_idle & btn_count_maxed &  btn_state;
+        end
     end
 
 endmodule
