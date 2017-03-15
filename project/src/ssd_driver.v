@@ -21,12 +21,12 @@ module ssd_driver(
     integer i_last = 3;
     integer j;
 
-    always @(posedge clk) begin
-        if (rst) begin
-            for (j = 0; j < 4; j = j+1)
-                anode[j] = 1;
-        end
+    initial begin
+        for (j = 0; j < 4; j = j+1)
+            anode[j] = 1;
+    end
 
+    always @(posedge clk) begin
         anode[i_last] <= 1;
         anode[i] <= 0;
 
