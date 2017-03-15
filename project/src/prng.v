@@ -4,7 +4,6 @@
 
 module prng(
     input clk,
-    input rst,
     output reg [2:0] code0,
     output reg [2:0] code1,
     output reg [2:0] code2,
@@ -26,7 +25,7 @@ module prng(
      * taps are 4, 10, 11, 12 (bits 3, 9, 10, 11)
      * provides 4095 random numbers before repeating
      * this is a maximal according to wikipedia's table */
-    always @(posedge clk or rst) begin
+    always @(posedge clk) begin
         code_next[11] = code[3]  ^ code[9]  ^ code[10] ^ code[11];
         code_next[10] = code[2]  ^ code[8]  ^ code[9]  ^ code[10];
         code_next[9]  = code[1]  ^ code[7]  ^ code[8]  ^ code[9];
