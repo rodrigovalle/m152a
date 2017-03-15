@@ -42,31 +42,31 @@ module mastermind(
     debouncer select_db(
         .clk(clk),
         .btn_in(btnS),
-        .btn_state(select)
+        .btn_down(select)
     );
 	 
     debouncer right_db(
         .clk(clk),
         .btn_in(btnR),
-        .btn_state(right)
+        .btn_down(right)
     );
 
     debouncer left_db(
         .clk(clk),
         .btn_in(btnL),
-        .btn_state(left)
+        .btn_down(left)
     );
 
     debouncer up_db(
         .clk(clk),
         .btn_in(btnU),
-        .btn_state(up)
+        .btn_down(up)
     );
 
     debouncer down_db(
         .clk(clk),
         .btn_in(btnD),
-        .btn_state(down)
+        .btn_down(down)
     );
 
     wire [2:0] guess0, guess1, guess2, guess3;
@@ -118,7 +118,7 @@ module mastermind(
 
     // Led Driver
     led_driver led_dr(
-        .clk(four_hz),
+        .blink_clk(four_hz),
         .blink_enable(!sw),
         .blink_led(sel_led),
         .guess_rgb0(guess0),

@@ -1,5 +1,5 @@
 module led_driver(
-    input wire clk,
+    input wire blink_clk,
     input wire blink_enable,
     input wire [1:0] blink_led,
     input wire [2:0] guess_rgb0,
@@ -31,7 +31,7 @@ module led_driver(
     assign rgb2 = (blink_enable) ? ((!blink && blink_led == 2) ? 3'b000 : guess_rgb2) : history_rgb2;
     assign rgb3 = (blink_enable) ? ((!blink && blink_led == 3) ? 3'b000 : guess_rgb3) : history_rgb3;
 
-    always @(posedge clk) begin
+    always @(posedge blink_clk) begin
         blink <= ~blink;
         rgb0_out <= rgb0;
         rgb1_out <= rgb1;
