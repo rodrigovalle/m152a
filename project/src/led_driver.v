@@ -37,7 +37,7 @@ module led_driver(
                 end
                 if (blink_led == 1) begin
                     rgb0_out <= guess_rgb0;
-                    rgb1_out <= 3'b000;
+                    rgb1_out <= 0;
                     rgb2_out <= guess_rgb2;
                     rgb3_out <= guess_rgb3;
                 end

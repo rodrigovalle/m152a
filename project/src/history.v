@@ -31,7 +31,7 @@ module history(
         first_turn = 1;
         selected_turn = 0;
 
-        selection0 = 0;
+        selection0 = 5;
         selection1 = 0;
         selection2 = 0;
         selection3 = 0;
@@ -71,8 +71,12 @@ module history(
                     selection0 = history[selected_turn][0];
                 end
             end
-            else
-                selected_turn = current_turn - 1;
+            else begin
+                if (current_turn > 0)
+                    selected_turn = current_turn - 1;
+                else
+                    selected_turn = 0;
+            end
         end
 
         else if (mode == 1 && !first_turn) begin // HISTORY

@@ -17,6 +17,8 @@ module led_driver_tb;
     wire [2:0] rgb2_out;
    	wire [2:0] rgb3_out;
 
+    wire show;
+
    	integer cnt = 0;
 
     initial begin
@@ -41,6 +43,10 @@ module led_driver_tb;
     always @(posedge clk) begin
 
         cnt += 1;
+
+        if (cnt == 10) begin
+            blink_enable = 1;
+        end
 
         $display("----\n",
                  "RGBs: %d-%d-%d-%d\n", rgb0_out, rgb1_out, rgb2_out, rgb3_out,

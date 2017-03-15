@@ -75,7 +75,7 @@ module mastermind(
     // Guess
     guess guess(
         .clk(four_hundred_hz),
-        .enable(!mode),
+        .enable(!sw),
         .left(left),
         .right(right),
         .up(up),
@@ -120,7 +120,7 @@ module mastermind(
     // Led Driver
     led_driver led_dr(
         .clk(four_hundred_hz),
-        .blink_enable(!mode),
+        .blink_enable(!sw),
         .blink_led(sel_led),
         .guess_rgb0(guess0),
         .guess_rgb1(guess1),
@@ -140,6 +140,7 @@ module mastermind(
     wire [2:0] code0, code1, code2, code3;
     prng code_creator(
         .clk(four_hundred_hz),
+        .rst(game_over),
         .code0(code0),
         .code1(code1),
         .code2(code2),

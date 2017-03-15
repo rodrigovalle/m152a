@@ -186,6 +186,9 @@ module feedback(
             else
                 ssd3 <= 0;
 
+            if (direct_matches == 4)
+                game_is_ending = 1;
+
             if (last_turn)  begin
                 game_is_ending = 1;
             end

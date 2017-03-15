@@ -20,7 +20,7 @@ module mastermind_tb;
         btnS = 0;
         btnR = 0;
         btnL = 0;
-        btnU = 0;
+        btnU = 1;
         btnD = 0;
         # 20 $finish;
     end
@@ -34,24 +34,25 @@ module mastermind_tb;
     always @(posedge clk) begin
 
         $display("----\n",
-                 "RGBs: %d-%d-%d-%d\n", rgb0_out[0], rgb1_out[1], rgb2_out[2], rgb3_out[3],
-                 "Selected Turn: %b\n\n", sw_led);
+                 "RGBs: %d-%d-%d-%d\n", rgb0_out, rgb1_out, rgb2_out, rgb3_out,
+                 "Selected Turn: %b\n", sw_led);
         
-        if (cnt == 0) begin
+        if (cnt == 0)
             btnU <= 1;
-        end
+        if (cnt == 4)
+            btnU <= 0;
 
-        if (cnt == 1) begin
-            btnU <=0;
-        end
+        // if (cnt == 1) begin
+        //     btnU <=0;
+        // end
 
-        if (cnt == 2) begin
-            btnS <= 1;
-        end
+        // if (cnt == 2) begin
+        //     btnS <= 1;
+        // end
 
-        if (cnt == 4) begin
-            btnS <= 0;
-        end
+        // if (cnt == 4) begin
+        //     btnS <= 0;
+        // end
 
         cnt = cnt + 1;
     end

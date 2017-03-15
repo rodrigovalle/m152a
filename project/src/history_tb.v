@@ -49,11 +49,11 @@ module history_tb;
         if (cnt == 2) begin
             $display("checking selection");
             select <= 0;
-            // mode <= 1;
+            guess[0] <= 'b000;
+            guess[1] <= 'b000;
+            guess[2] <= 'b000;
+            guess[3] <= 'b000;
         end
-
-        // if (cnt == 3) 
-        //     mode <= 0;
 
         if (cnt == 6) begin
             $display("Another selection");
@@ -82,10 +82,10 @@ module history_tb;
 
     always @(negedge clk) begin
         
-        $display("----\n",
+        $display("---------\n",
                  "Selection: %d-%d-%d-%d\n", selection[0], selection[1], selection[2], selection[3],
                  "Selected Turn: %d\n", selected_turn,
-                 "End Game: %d  Cnt: %0d\n\n", last_turn, cnt - 1);
+                 "End Game: %d  Cnt: %0d", last_turn, cnt - 1);
 
     end
 

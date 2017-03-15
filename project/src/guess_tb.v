@@ -31,8 +31,6 @@ module guess_tb;
 
     always @(posedge clk) begin
 
-        cnt += 1;
-
         // Test right
         if (cnt == 6 || cnt == 12 || cnt == 18 || cnt == 24)
             right <= 1;
@@ -59,6 +57,10 @@ module guess_tb;
         if (cnt == 35)
             enable <= 0;
 
+        cnt = cnt + 1;
+    end
+
+    always @(negedge clk) begin
         $display("----\n",
                  "LEDs: %d-%d-%d-%d\n", led_zero, led_one, led_two, led_three,
                  "Sel_led: %d  Cnt: %0d", sel_led, cnt);
