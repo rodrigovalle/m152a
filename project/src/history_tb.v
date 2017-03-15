@@ -49,11 +49,11 @@ module history_tb;
         if (cnt == 2) begin
             $display("checking selection");
             select <= 0;
-            mode <= 1;
+            // mode <= 1;
         end
 
-        if (cnt == 3) 
-            mode <= 0;
+        // if (cnt == 3) 
+        //     mode <= 0;
 
         if (cnt == 6) begin
             $display("Another selection");
@@ -64,25 +64,29 @@ module history_tb;
             select <= 1;
         end
 
-        if (cnt == 7)
-            select <= 0;
+        // if (cnt == 7)
+        //     select <= 0;
 
-        if (cnt == 12) begin
-            $display("History");
-            mode <= 1;
-        end
+        // if (cnt == 12) begin
+        //     $display("History");
+        //     mode <= 1;
+        // end
 
-        if (cnt == 16) begin
-            $display("Press down");
-            down <= 1;
-        end
+        // if (cnt == 16) begin
+        //     $display("Press down");
+        //     down <= 1;
+        // end
 
+        cnt = cnt + 1;
+    end
+
+    always @(negedge clk) begin
+        
         $display("----\n",
                  "Selection: %d-%d-%d-%d\n", selection[0], selection[1], selection[2], selection[3],
                  "Selected Turn: %d\n", selected_turn,
-                 "End Game: %d  Cnt: %0d\n\n", last_turn, cnt);
+                 "End Game: %d  Cnt: %0d\n\n", last_turn, cnt - 1);
 
-        cnt = cnt + 1;
     end
 
     history history_test(
