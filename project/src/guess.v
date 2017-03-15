@@ -21,7 +21,7 @@ module guess(
         blink_led = 0;
     end
 
-    always @(*) begin
+    always @(enable or left or right or up or down) begin
         if (enable) begin 
             // Handle changing led
             if (left)

@@ -74,7 +74,6 @@ module mastermind(
 
     // Guess
     guess guess(
-        .clk(four_hundred_hz),
         .enable(!sw),
         .left(left),
         .right(right),

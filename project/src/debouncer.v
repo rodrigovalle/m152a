@@ -14,7 +14,9 @@ module debouncer(
     always @(posedge clk) begin
         hist <= {hist[1:0], btn_in};
         if (hist == 3'b110)
-            btn_state <= ~btn_state;
+            btn_state <= 1;
+        else
+            btn_state <= 0;
     end
 
 endmodule
