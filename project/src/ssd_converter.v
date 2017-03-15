@@ -10,7 +10,7 @@ module ssd_converter(
         case (n)          // HGFEDCBA
             2'h0: ssd <= ~8'b00000000; // blank
             2'h1: ssd <= ~8'b00111111; // 0
-            2'h2: ssd <= ~8'b01011110; // H
+            2'h2: ssd <= ~8'b01110110; // H
         endcase
     end
 
