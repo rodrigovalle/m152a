@@ -16,10 +16,17 @@ module led_driver(
     output reg [2:0] rgb3_out
 );
 
+    initial begin
+        rgb0_out <= 0;
+        rgb1_out <= 0;
+        rgb2_out <= 0;
+        rgb3_out <= 0;
+    end
+
     reg show = 0;
 
     always @(posedge clk) begin
-        if (blink_enable) begin // GUESS mode
+        if (blink_enable == 1) begin // GUESS mode
             show <= ~show;
             if (!show) begin
                 if (blink_led == 0) begin
