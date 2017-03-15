@@ -23,6 +23,7 @@ module debounce_tb;
     end
 
     debouncer debounce_uut(
+        .reset(1'b1),
         .clk(clk),
         .btn_in(btn_in),
         .btn_pressed(btn_pressed)

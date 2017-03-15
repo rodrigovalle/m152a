@@ -40,30 +40,35 @@ module mastermind(
     // debounced button outputs
     wire select, right, left, up, down;
     debouncer select_db(
+        .reset(1'b0),
         .clk(clk),
         .btn_in(btnS),
         .btn_pressed(select)
     );
 	 
     debouncer right_db(
+        .reset(1'b0),
         .clk(clk),
         .btn_in(btnR),
         .btn_pressed(right)
     );
 
     debouncer left_db(
+        .reset(1'b0),
         .clk(clk),
         .btn_in(btnL),
         .btn_pressed(left)
     );
 
     debouncer up_db(
+        .reset(1'b0),
         .clk(clk),
         .btn_in(btnU),
         .btn_pressed(up)
     );
 
     debouncer down_db(
+        .reset(1'b0),
         .clk(clk),
         .btn_in(btnD),
         .btn_pressed(down)
