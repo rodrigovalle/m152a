@@ -23,11 +23,14 @@ module debouncer(
 
     always @(posedge clk) begin
         if (btn_idle)
-            btn_count <= btn_count + 1;
+            btn_count <= 0;
         else begin
-            assign btn_down = ~btn_idle & btn_count_maxed & ~btn_state;
-            assign btn_up   = ~btn_idle & btn_count_maxed &  btn_state;
+            btn_count <= btn_count + 16'd1;
+            if(btn_count_max) btn_state <= ~btn_state;
         end
+
+        assign btn_down = ~btn_idle & btn_count_maxed & ~btn_state;
+        assign btn_up   = ~btn_idle & btn_count_maxed &  btn_state;
     end
 
 endmodule
