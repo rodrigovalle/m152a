@@ -45,8 +45,8 @@ always @ (posedge clk) begin
         four_hundred_hz_clk <= 0;
     end
 
-    // Manage 4 Hz clk
-    if (two_hundred_hz_cnt == 25000000 - 1) begin
+    // Manage 200 Hz clk
+    if (two_hundred_hz_cnt == 500000 - 1) begin
         two_hundred_hz_clk <= 1;
         two_hundred_hz_cnt <= 0;
     end

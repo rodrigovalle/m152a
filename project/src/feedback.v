@@ -36,7 +36,7 @@ module feedback(
     integer history2_matched = 0;
     integer history3_matched = 0;
 
-    always @(code0 or code1 or code2 or code3 or history0 or history1 or history2 or history3) begin
+    always @(code0 or code1 or code2 or code3 or history0 or history1 or history2 or history3 or game_is_ending or last_turn) begin
         
         if (!game_is_ending) begin
             direct_matches = 0;
@@ -201,6 +201,8 @@ module feedback(
 
         if (end_game_cnt == 4)
             game_over <= 1;
+        if (game_over == 1)
+            game_over <= 0;
     end
 
 endmodule
