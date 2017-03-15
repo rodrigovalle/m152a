@@ -70,7 +70,7 @@ module mastermind(
     );
 
     wire [2:0] guess0, guess1, guess2, guess3;
-    wire [1:0] sel_led; // Which led is under selection (for blinking purposes)
+    wire [1:0] blink_led; // Which led is under selection (for blinking purposes)
 
     // Guess
     guess guess(
@@ -84,7 +84,7 @@ module mastermind(
         .led_one(guess1),
         .led_two(guess2),
         .led_three(guess3),
-        .sel_led(sel_led)
+        .blink_led(sel_led)
     );
 
     // History
