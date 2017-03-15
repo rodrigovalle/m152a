@@ -5,17 +5,17 @@ module clock_div(
     output reg two_hz_clk,
     output reg one_hz_clk,
     output reg four_hundred_hz_clk,
-    output reg four_hz_clk
+    output reg one_hundred_hz_clk
 );
 
-integer two_hz_cnt, one_hz_cnt, four_hundred_hz_cnt, four_hz_cnt;
+integer two_hz_cnt, one_hz_cnt, four_hundred_hz_cnt, one_hundred_hz_cnt;
 
 // clk is 100 MHz or 100,000,000
 always @ (posedge clk) begin
     two_hz_cnt <= two_hz_cnt + 1;
     one_hz_cnt <= one_hz_cnt + 1;
     four_hundred_hz_cnt <= four_hundred_hz_cnt + 1;
-    four_hz_cnt <= four_hz_cnt + 1;  // for minute/second blinking
+    one_hundred_hz_cnt <= one_hundred_hz_cnt + 1;  // for minute/second blinking
 
 
     // Manage 2 Hz clk
@@ -46,12 +46,12 @@ always @ (posedge clk) begin
     end
 
     // Manage 4 Hz clk
-    if (four_hz_cnt == 25000000 - 1) begin
-        four_hz_clk <= 1;
-        four_hz_cnt <= 0;
+    if (one_hundred_hz_cnt == 25000000 - 1) begin
+        one_hundred_hz_clk <= 1;
+        one_hundred_hz_cnt <= 0;
     end
     else begin
-        four_hz_clk <= 0;
+        one_hundred_hz_clk <= 0;
     end
  end
 
