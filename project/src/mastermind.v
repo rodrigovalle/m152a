@@ -25,14 +25,14 @@ module mastermind(
      * */
 
     // clock outputs
-    wire one_hz, two_hz, two_hundred_hz, four_hundred_hz;
+    wire one_hz, four_hz, two_hundred_hz, four_hundred_hz;
     clock_div cdiv(
         // inputs
         .clk(clk),
 
         // outputs
         .one_hz_clk(one_hz),
-        .two_hz_clk(two_hz),
+        .four_hz_clk(four_hz),
         .two_hundred_hz_clk(two_hundred_hz),
         .four_hundred_hz_clk(four_hundred_hz)
     );
@@ -118,7 +118,7 @@ module mastermind(
 
     // Led Driver
     led_driver led_dr(
-        .clk(two_hz),
+        .clk(four_hz),
         .blink_enable(!sw),
         .blink_led(sel_led),
         .guess_rgb0(guess0),
