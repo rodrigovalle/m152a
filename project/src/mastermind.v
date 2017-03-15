@@ -16,6 +16,13 @@ module mastermind(
     output  [2:0]   rgb3_out,   // led 3
     output  [7:0]   sw_led      // those leds above the switches
     );
+    
+    /* use for setting up leds properly:
+     * assign rgb0_out = 'b101;
+     * assign rgb1_out = 'b101;
+     * assign rgb2_out = 'b101;
+     * assign rgb3_out = 'b101;
+     * */
 
     // clock outputs
     wire one_hz, two_hz, four_hz, four_hundred_hz;
