@@ -25,7 +25,7 @@ module mastermind(
      * */
 
     // clock outputs
-    wire one_hz, two_hz, one_hundred_hz, four_hundred_hz;
+    wire one_hz, two_hz, two_hundred_hz, four_hundred_hz;
     clock_div cdiv(
         // inputs
         .clk(clk),
@@ -33,38 +33,38 @@ module mastermind(
         // outputs
         .one_hz_clk(one_hz),
         .two_hz_clk(two_hz),
-        .one_hundred_hz_clk(one_hundred_hz),
+        .two_hundred_hz_clk(two_hundred_hz),
         .four_hundred_hz_clk(four_hundred_hz)
     );
 
     // debounced button outputs
     wire select, right, left, up, down;
     debouncer select_db(
-        .clk(one_hundred_hz),
+        .clk(two_hundred_hz),
         .btn_in(btnS),
         .btn_state(select)
     );
 	 
     debouncer right_db(
-        .clk(one_hundred_hz),
+        .clk(two_hundred_hz),
         .btn_in(btnR),
         .btn_state(right)
     );
 
     debouncer left_db(
-        .clk(one_hundred_hz),
+        .clk(two_hundred_hz),
         .btn_in(btnL),
         .btn_state(left)
     );
 
     debouncer up_db(
-        .clk(one_hundred_hz),
+        .clk(two_hundred_hz),
         .btn_in(btnU),
         .btn_state(up)
     );
 
     debouncer down_db(
-        .clk(one_hundred_hz),
+        .clk(two_hundred_hz),
         .btn_in(btnD),
         .btn_state(down)
     );
@@ -183,7 +183,7 @@ module mastermind(
         .ssd(ssd2)
     );
 
-    ssd_converter one_hundred_converter(
+    ssd_converter two_hundred_converter(
         .n(feedback3),
         .ssd(ssd3)
     );
