@@ -3,34 +3,28 @@
 module debouncer(
     input wire clk,
     input wire btn_in,
-    output reg btn_state,
-    output reg btn_down,
-    output reg btn_up
+    output reg btn_pressed = 0
 );
 
-    reg btn_sync_0;
-    reg btn_sync_1;
+    parameter DELAY = 65535;
+    parameter BITS = 16;
+
+    reg [BITS-1:0] btn_cnt = 0;
+    reg sync;
 
     always @(posedge clk) begin
-        btn_sync_0 <= ~btn_in;
-        btn_sync_1 <= btn_sync_0;
-    end
+        sync <= btn_in;
+        btn_pressed <= 0;
 
-    reg [15:0] btn_count;
-
-    wire btn_idle = (btn_state == btn_sync_1);
-    wire btn_count_maxed = &btn_count;
-
-    always @(posedge clk) begin
-        if (btn_idle)
-            btn_count <= 0;
-        else begin
-            btn_count <= btn_count + 16'd1;
-            if(btn_count_maxed) btn_state <= ~btn_state;
+        if (sync == 0) begin
+            btn_cnt <= 0;
         end
-
-        btn_down = ~btn_idle & btn_count_maxed & ~btn_state;
-        btn_up   = ~btn_idle & btn_count_maxed &  btn_state;
+        else if (btn_cnt == DELAY) begin
+            $display("%d", sync);
+            btn_pressed <= sync;
+        end
+        else
+            btn_cnt <= btn_cnt + 1;
     end
 
 endmodule
