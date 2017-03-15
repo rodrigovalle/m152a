@@ -16,6 +16,9 @@ module led_driver(
     output reg [2:0] rgb3_out
 );
 
+    wire [2:0] rgb0, rgb1, rgb2, rgb3;
+    reg blink = 0;
+
     initial begin
         rgb0_out <= 0;
         rgb1_out <= 0;
@@ -23,50 +26,17 @@ module led_driver(
         rgb3_out <= 0;
     end
 
-    reg show = 0;
+    assign rgb0 = (blink_enable) ? ((!blink && blink_led == 0) ? 3'b000 : guess_rgb0) : history_rgb0;
+    assign rgb1 = (blink_enable) ? ((!blink && blink_led == 1) ? 3'b000 : guess_rgb1) : history_rgb1;
+    assign rgb2 = (blink_enable) ? ((!blink && blink_led == 2) ? 3'b000 : guess_rgb2) : history_rgb2;
+    assign rgb3 = (blink_enable) ? ((!blink && blink_led == 3) ? 3'b000 : guess_rgb3) : history_rgb3;
 
     always @(posedge clk) begin
-        if (blink_enable == 1) begin // GUESS mode
-            show <= ~show;
-            if (!show) begin
-                if (blink_led == 0) begin
-                    rgb0_out <= 3'b000;
-                    rgb1_out <= guess_rgb1;
-                    rgb2_out <= guess_rgb2;
-                    rgb3_out <= guess_rgb3;
-                end
-                if (blink_led == 1) begin
-                    rgb0_out <= guess_rgb0;
-                    rgb1_out <= 0;
-                    rgb2_out <= guess_rgb2;
-                    rgb3_out <= guess_rgb3;
-                end
-                if (blink_led == 2) begin
-                    rgb0_out <= guess_rgb0;
-                    rgb1_out <= guess_rgb1;
-                    rgb2_out <= 3'b000;
-                    rgb3_out <= guess_rgb3;
-                end
-                if (blink_led == 3) begin
-                    rgb0_out <= guess_rgb0;
-                    rgb1_out <= guess_rgb1;
-                    rgb2_out <= guess_rgb2;
-                    rgb3_out <= 3'b000;
-                end
-            end
-            else begin          
-                rgb0_out <= guess_rgb0;
-                rgb1_out <= guess_rgb1;
-                rgb2_out <= guess_rgb2;
-                rgb3_out <= guess_rgb3;
-            end
-        end
-        else begin // HISTORY mode
-            rgb0_out <= history_rgb0;
-            rgb1_out <= history_rgb1;
-            rgb2_out <= history_rgb2;
-            rgb3_out <= history_rgb3;
-        end
+        blink <= ~blink;
+        rgb0_out <= rgb0;
+        rgb1_out <= rgb1;
+        rgb2_out <= rgb2;
+        rgb3_out <= rgb3;
      end
 
 endmodule
