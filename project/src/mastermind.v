@@ -38,41 +38,46 @@ module mastermind(
     );
 
     // debounced button outputs
-    wire select, right, left, up, down;
-    debouncer select_db(
-        .reset(1'b0),
+    wire select = btnS;
+    wire right = btnR;
+    wire left = btnL;
+    wire up = btnU;
+    wire down = btnD;
+
+    /*debouncer select_db(
+        .reset(1'b1),
         .clk(clk),
         .btn_in(btnS),
         .btn_pressed(select)
     );
 	 
     debouncer right_db(
-        .reset(1'b0),
+        .reset(1'b1),
         .clk(clk),
         .btn_in(btnR),
         .btn_pressed(right)
     );
 
     debouncer left_db(
-        .reset(1'b0),
+        .reset(1'b1),
         .clk(clk),
         .btn_in(btnL),
         .btn_pressed(left)
     );
 
     debouncer up_db(
-        .reset(1'b0),
+        .reset(1'b1),
         .clk(clk),
         .btn_in(btnU),
         .btn_pressed(up)
     );
 
-    debouncer down_db(
-        .reset(1'b0),
+    /*debouncer down_db(
+        .reset(1'b1),
         .clk(clk),
         .btn_in(btnD),
         .btn_pressed(down)
-    );
+    );*/
 
     wire [2:0] guess0, guess1, guess2, guess3;
     wire [1:0] blink_led; // Which led is under selection (for blinking purposes)
