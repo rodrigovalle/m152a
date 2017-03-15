@@ -36,7 +36,7 @@ module history(
         if (reset) begin
             for (i = 0; i < 8; i = i + 1)
                 history[i] = 'b000000000000;
-            last_turn <= 0;
+            last_turn = 0;
             current_turn = 0;
             selected_turn <= 0;
             first_turn <= 1;
@@ -50,7 +50,7 @@ module history(
             if (btn_select) begin // STORE GUESS
                 history[current_turn] = {guess3, guess2, guess1, guess0};
                 selected_turn <= current_turn;
-                current_turn <= current_turn + 1;
+                current_turn = current_turn + 1;
                 first_turn <= 0;
             end
             else
