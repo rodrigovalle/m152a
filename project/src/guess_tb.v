@@ -23,13 +23,21 @@ module guess_tb;
                  "LEDs: %d-%d-%d-%d\n", led_zero, led_one, led_two, led_three,
                  "Sel_led: %d, time %d\n", blink_led, $time);
 
-        #100 right = 1;
-        #100 right = 0;
-        #100 up = 1;
-        #100 up = 0;
-        #100 down = 1;
-        #100 down = 0;
-        #100 $finish;
+        #1 right = 1;
+        #1 right = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 right = 1;
+        #1 right = 0;
+        #1 right = 1;
+        #1 right = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 right = 1;
+        #1 right = 0;
+        #1 right = 1;
+        #1 right = 0;
+        #1 $finish;
     end
 
     guess guess_test(
