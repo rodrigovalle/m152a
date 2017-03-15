@@ -20,30 +20,30 @@ module guess(
 
             // Handle changing led
             if (left)
-                sel_led <= sel_led - 1;
+                sel_led = sel_led - 1;
             else if (right)
-                sel_led <= sel_led + 1;
+                sel_led = sel_led + 1;
             
             // Hanlde changing color
             if (up) begin
                 if (sel_led == 0)
-                    led_zero <= led_zero + 1;
+                    led_zero = led_zero + 1;
                 else if (sel_led == 1)
-                    led_one <= led_one + 1;
+                    led_one = led_one + 1;
                 else if (sel_led == 2)
-                    led_two <= led_two + 1;
+                    led_two = led_two + 1;
                 else if (sel_led == 3)
-                    led_three <= led_three + 1;
+                    led_three = led_three + 1;
             end
             else if (down) begin
                 if (sel_led == 0)
-                    led_zero <= led_zero - 1;
+                    led_zero = led_zero - 1;
                 else if (sel_led == 1)
-                    led_one <= led_one - 1;
+                    led_one = led_one - 1;
                 else if (sel_led == 2)
-                    led_two <= led_two - 1;
+                    led_two = led_two - 1;
                 else if (sel_led == 3)
-                    led_three <= led_three - 1;
+                    led_three = led_three - 1;
             end
         end
     end
