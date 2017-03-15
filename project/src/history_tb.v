@@ -64,18 +64,18 @@ module history_tb;
             select <= 1;
         end
 
-        // if (cnt == 7)
-        //     select <= 0;
+        if (cnt == 7)
+            select <= 0;
 
-        // if (cnt == 12) begin
-        //     $display("History");
-        //     mode <= 1;
-        // end
+        if (cnt == 12) begin
+            $display("History");
+            mode <= 1;
+        end
 
-        // if (cnt == 16) begin
-        //     $display("Press down");
-        //     down <= 1;
-        // end
+        if (cnt == 16) begin
+            $display("Press down");
+            down <= 1;
+        end
 
         cnt = cnt + 1;
     end

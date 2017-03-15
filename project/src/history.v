@@ -30,6 +30,11 @@ module history(
         last_turn = 0;
         first_turn = 1;
         selected_turn = 0;
+
+        selection0 = 0;
+        selection1 = 0;
+        selection2 = 0;
+        selection3 = 0;
     end
 
     always @(posedge clk) begin

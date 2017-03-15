@@ -89,6 +89,7 @@ module mastermind(
 
     // History
     wire [2:0] history0, history1, history2, history3;
+    wire [2:0] turn;
     wire last_turn;
     wire game_over;
 
