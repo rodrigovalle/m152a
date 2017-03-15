@@ -19,8 +19,6 @@ module led_driver_tb;
 
     wire show;
 
-   	integer cnt = 0;
-
     initial begin
     	clk		= 0;
     	blink_enable = 0;
@@ -33,28 +31,24 @@ module led_driver_tb;
     	history_rgb1 = 2;
     	history_rgb2 = 2;
     	history_rgb3 = 2;
-    	#40 $finish;
+
+        $monitor("----\n",
+                 "RGBs: %b-%b-%b-%b\n", rgb0_out, rgb1_out, rgb2_out, rgb3_out,
+                 "Blink_enable: %d   Blink_led: %d  Time: %0d", blink_enable, blink_led, $time);
+
+        #1 blink_enable = 1;
+        #4 blink_led = blink_led + 1;
+        #4 blink_led = blink_led + 1;
+
+    	#5 $finish;
     end
 
     always begin
         #0.5 clk = ~clk;
     end
 
-    always @(posedge clk) begin
-
-        cnt += 1;
-
-        if (cnt == 10) begin
-            blink_enable = 1;
-        end
-
-        $display("----\n",
-                 "RGBs: %d-%d-%d-%d\n", rgb0_out, rgb1_out, rgb2_out, rgb3_out,
-                 "Blink_enable: %d   Blink_led: %d  Cnt: %0d", blink_enable, blink_led, cnt);
-	end
-
 	led_driver led_dr(
-		.clk(clk),
+		.blink_clk(clk),
 		.blink_enable(blink_enable),
 		.blink_led(blink_led),
 		.guess_rgb0(guess_rgb0),

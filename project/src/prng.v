@@ -4,19 +4,13 @@
 
 module prng(
     input clk,
+    input rst,
     output reg [2:0] code0,
     output reg [2:0] code1,
     output reg [2:0] code2,
     output reg [2:0] code3
 );
 
-    // our seed value (shhh, don't tell anyone)
-    initial begin
-        code0 = 3'b101;
-        code1 = 3'b111;
-        code2 = 3'b100;
-        code3 = 3'b000;
-    end
 
     wire [11:0] code = {code3, code2, code1, code0};
     reg  [11:0] code_next;
@@ -25,7 +19,16 @@ module prng(
      * taps are 4, 10, 11, 12 (bits 3, 9, 10, 11)
      * provides 4095 random numbers before repeating
      * this is a maximal according to wikipedia's table */
-    always @(posedge clk) begin
+    always @(posedge clk or rst) begin
+
+        if (rst) begin
+        // our seed value (shhh, don't tell anyone)
+            code0 = 3'b101;
+            code1 = 3'b111;
+            code2 = 3'b100;
+            code3 = 3'b000;
+        end
+
         code_next[11] = code[3]  ^ code[9]  ^ code[10] ^ code[11];
         code_next[10] = code[2]  ^ code[8]  ^ code[9]  ^ code[10];
         code_next[9]  = code[1]  ^ code[7]  ^ code[8]  ^ code[9];

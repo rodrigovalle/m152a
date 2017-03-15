@@ -25,26 +25,20 @@ module history(
     reg first_turn;
     reg [3:0][2:0] history[7:0];
 
-    initial begin
-        current_turn = 0;
-        last_turn = 0;
-        first_turn = 1;
-        selected_turn = 0;
-
-        selection0 = 5;
-        selection1 = 0;
-        selection2 = 0;
-        selection3 = 0;
-    end
-
     always @(posedge clk) begin
         if (reset) begin
             for (i = 0; i < 8; i = i + 1)
                 history[i] = 'b000000000000;
-            last_turn = 0;
+            
             current_turn = 0;
-            selected_turn = 0;
+            last_turn = 0;
             first_turn = 1;
+            selected_turn = 0;
+
+            selection0 = 0;
+            selection1 = 0;
+            selection2 = 0;
+            selection3 = 0;
         end
 
         else if (mode == 0) begin
