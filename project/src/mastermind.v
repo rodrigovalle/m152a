@@ -91,8 +91,27 @@ module mastermind(
         .blink_led(blink_led)
     );
 
+    // Led Driver
+    led_driver led_dr(
+        .blink_clk(four_hz),
+        .blink_enable(1'b1),
+        .blink_led(blink_led),
+        .guess_rgb0(guess0),
+        .guess_rgb1(guess1),
+        .guess_rgb2(guess2),
+        .guess_rgb3(guess3),
+        .history_rgb0(3'b000),
+        .history_rgb1(3'b000),
+        .history_rgb2(3'b000),
+        .history_rgb3(3'b000),
+        .rgb0_out(rgb0_out),
+        .rgb1_out(rgb1_out),
+        .rgb2_out(rgb2_out),
+        .rgb3_out(rgb3_out)
+    );
+
     // History
-    wire [2:0] history0, history1, history2, history3;
+    /*wire [2:0] history0, history1, history2, history3;
     wire [2:0] turn;
     wire last_turn;
     wire game_over;
@@ -113,44 +132,26 @@ module mastermind(
         .selection0(history0),
         .selected_turn(turn),
         .last_turn(last_turn)
-    );
+    );*/
 
+    /*
     turn turn_convert(
         .turn_count(turn),
         .sw_led(sw_led)
-    );
-
-    // Led Driver
-    led_driver led_dr(
-        .blink_clk(four_hz),
-        .blink_enable(!sw),
-        .blink_led(blink_led),
-        .guess_rgb0(guess0),
-        .guess_rgb1(guess1),
-        .guess_rgb2(guess2),
-        .guess_rgb3(guess3),
-        .history_rgb0(history0),
-        .history_rgb1(history1),
-        .history_rgb2(history2),
-        .history_rgb3(history3),
-        .rgb0_out(rgb0_out),
-        .rgb1_out(rgb1_out),
-        .rgb2_out(rgb2_out),
-        .rgb3_out(rgb3_out)
-    );
+    );*/
 
     // PRNG
-    wire [2:0] code0, code1, code2, code3;
+    /*wire [2:0] code0, code1, code2, code3;
     prng code_creator(
         .clk(1'b1),
         .code0(code0),
         .code1(code1),
         .code2(code2),
         .code3(code3)
-    );
+    );*/
 
     // Feedback
-    wire [1:0] feedback0, feedback1, feedback2, feedback3;
+    /*wire [1:0] feedback0, feedback1, feedback2, feedback3;
     feedback feedback(
         .clk(one_hz),
         .last_turn(last_turn),
@@ -200,6 +201,6 @@ module mastermind(
         .digit4(ssd3),
         .cathode(seg),
         .anode(an)
-    );
+    );*/
 
 endmodule
