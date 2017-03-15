@@ -1,30 +1,28 @@
 `timescale 1ns / 1ps
 
 module debouncer(
-    input wire reset,
     input wire clk,
     input wire btn_in,
-    output reg btn_pressed
+    output reg btn_pressed = 0
 );
 
-    parameter DELAY = 16'hffff;
+    parameter DELAY = 65535;
     parameter BITS = 16;
 
-    reg [BITS-1:0] btn_cnt;
+    reg [BITS-1:0] btn_cnt = 0;
     reg sync;
 
     always @(posedge clk) begin
-        if (reset) begin
-            sync <= btn_in;
-            btn_pressed <= btn_in;
+        sync <= btn_in;
+        btn_pressed <= 0;
+
+        if (sync == 0) begin
             btn_cnt <= 0;
         end
-        else if (btn_in != sync) begin
-            sync <= btn_in;
-            btn_cnt <= 0;
-        end
-        else if (btn_cnt == DELAY)
+        else if (btn_cnt == DELAY) begin
+            $display("%d", sync);
             btn_pressed <= sync;
+        end
         else
             btn_cnt <= btn_cnt + 1;
     end
