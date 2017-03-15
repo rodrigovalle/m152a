@@ -3,10 +3,10 @@ module ssd_driver_tb;
     wire [7:0] cathode;
     wire [3:0] anode;
 
-    reg [3:0] i;
-    reg [3:0] j;
-    reg [3:0] k;
-    reg [3:0] l;
+    reg [1:0] i;
+    reg [1:0] j;
+    reg [1:0] k;
+    reg [1:0] l;
 
     wire [7:0] i_ssd;
     wire [7:0] j_ssd;
@@ -22,11 +22,16 @@ module ssd_driver_tb;
         $monitor("At time: %t\n", $time,
                  "cathode: %b\n", cathode,
                  "anode: %b", anode);
-        # 10000 $finish;
+        # 20 $finish;
     end
 
     always begin
-        #5 clk = ~clk;
+        #0.5 clk = ~clk;
+    end
+
+    always @(posedge clk) begin
+        if (i == 0)
+            i = 2;
     end
 
     ssd_converter i_converter(
@@ -35,16 +40,16 @@ module ssd_driver_tb;
     );
 
     ssd_converter j_converter(
-        .n(i),       // input
+        .n(j),       // input
         .ssd(j_ssd)  // output
     );
     ssd_converter k_converter(
-        .n(i),       // input
+        .n(k),       // input
         .ssd(k_ssd)  // output
     );
 
     ssd_converter l_converter(
-        .n(i),       // input
+        .n(l),       // input
         .ssd(l_ssd)  // output
     );
 
