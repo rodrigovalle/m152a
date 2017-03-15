@@ -38,8 +38,8 @@ module history(
                 history[i] = 'b000000000000;
             last_turn = 0;
             current_turn = 0;
-            selected_turn <= 0;
-            first_turn <= 1;
+            selected_turn = 0;
+            first_turn = 1;
         end
 
         else if (mode == 0) begin
@@ -49,21 +49,21 @@ module history(
 
             if (btn_select) begin // STORE GUESS
                 history[current_turn] = {guess3, guess2, guess1, guess0};
-                selected_turn <= current_turn;
+                selected_turn = current_turn;
                 current_turn = current_turn + 1;
-                first_turn <= 0;
+                first_turn = 0;
             end
             else
-                selected_turn <= current_turn - 1;
+                selected_turn = current_turn - 1;
         end
 
         else if (mode == 1 && !first_turn) begin // HISTORY
             last_turn = 0;
             if (btn_up && selected_turn < current_turn)
-                selected_turn <= selected_turn + 1;
+                selected_turn = selected_turn + 1;
 
             else if (btn_down && selected_turn > 0)
-                selected_turn <= selected_turn - 1;
+                selected_turn = selected_turn - 1;
         end
     end
 
@@ -71,32 +71,32 @@ module history(
         // guess mode: show most recent guess for the feedback module
         if (mode == 0) begin
             if (current_turn == 0) begin
-                selection3 <= 0;
-                selection2 <= 0;
-                selection1 <= 0;
-                selection0 <= 0;
+                selection3 = 0;
+                selection2 = 0;
+                selection1 = 0;
+                selection0 = 0;
             end
             else begin
-                selection3 <= history[selected_turn][3];
-                selection2 <= history[selected_turn][2];
-                selection1 <= history[selected_turn][1];
-                selection0 <= history[selected_turn][0];
+                selection3 = history[selected_turn][3];
+                selection2 = history[selected_turn][2];
+                selection1 = history[selected_turn][1];
+                selection0 = history[selected_turn][0];
             end
         end
 
         // history mode: show the currently selected mode if available
         else if (mode == 1) begin
             if (first_turn) begin
-                selection3 <= 0;
-                selection2 <= 0;
-                selection1 <= 0;
-                selection0 <= 0;
+                selection3 = 0;
+                selection2 = 0;
+                selection1 = 0;
+                selection0 = 0;
             end
             else begin
-                selection3 <= history[selected_turn][3];
-                selection2 <= history[selected_turn][2];
-                selection1 <= history[selected_turn][1];
-                selection0 <= history[selected_turn][0];
+                selection3 = history[selected_turn][3];
+                selection2 = history[selected_turn][2];
+                selection1 = history[selected_turn][1];
+                selection0 = history[selected_turn][0];
             end
         end
     end
