@@ -119,7 +119,7 @@ module mastermind(
 
     // Led Driver
     led_driver led_dr(
-        .clk(four_hundred_hz),
+        .clk(two_hz),
         .blink_enable(!sw),
         .blink_led(sel_led),
         .guess_rgb0(guess0),
