@@ -17,8 +17,6 @@ module led_driver_tb;
     wire [2:0] rgb2_out;
    	wire [2:0] rgb3_out;
 
-    wire show;
-
     initial begin
     	clk		= 0;
     	blink_enable = 0;
@@ -39,8 +37,7 @@ module led_driver_tb;
         #1 blink_enable = 1;
         #4 blink_led = blink_led + 1;
         #4 blink_led = blink_led + 1;
-
-    	#5 $finish;
+    	#1 $finish;
     end
 
     always begin

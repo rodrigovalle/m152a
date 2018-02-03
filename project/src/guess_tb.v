@@ -33,10 +33,22 @@ module guess_tb;
         #1 right = 0;
         #1 up = 1;
         #1 up = 0;
-        #1 right = 1;
-        #1 right = 0;
-        #1 right = 1;
-        #1 right = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 up = 1;
+        #1 up = 0;
+        #1 up = 1;
+        #1 up = 0;
         #1 $finish;
     end
 

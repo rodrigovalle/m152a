@@ -14,8 +14,9 @@ module debounce_tb;
                  "btn_pressed: %d\n", btn_pressed);
 
         #1     btn_in = 1;
+        #65536 ;
         #65536 btn_in = 0;
-        #3     $finish;
+        #100     $finish;
     end
 
     always begin
